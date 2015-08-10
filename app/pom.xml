@@ -16,16 +16,16 @@
     <name>Hibernate :: MyFirstHibernate :: App</name>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>4.3.10.Final</version>
-        </dependency>
         
         <dependency>
-            <groupId>com.exist.manio.myfirsthibernate.infra</groupId>
-            <artifactId>persistence</artifactId>
+            <groupId>com.exist.manio.myfirsthibernate.core</groupId>
+            <artifactId>dao</artifactId>
+            <version>0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.exist.manio.myfirsthibernate.core</groupId>
+            <artifactId>model</artifactId>
             <version>0.1</version>
         </dependency>
 
@@ -60,11 +60,11 @@
                             jar-with-dependencies
                         </descriptorRef>
                     </descriptorRefs>
-                    <!-- <archive>
+                    <archive>
                         <manifest>
-                            <mainClass>com.exist.manio.app.TableMain</mainClass>
+                            <mainClass>com.exist.manio.myfirsthibernate.app.HibernateMain</mainClass>
                         </manifest>
-                    </archive> -->
+                    </archive>
                 </configuration>
             </plugin>
 
