@@ -13,39 +13,39 @@ public class ScannerUtil {
 
     }
 
-	public static String getInput() {
-		if (console != null) {
-			try (Scanner sc = new Scanner(console.reader())) {
-				return sc.nextLine();
-			}
-			catch (Exception e) {
-				System.out.println("Error in getInput");
-			}
-		}
-		return null;
-	}
+    public static String getInput() {
+        if (console != null) {
+            try (Scanner sc = new Scanner(console.reader())) {
+                return sc.nextLine();
+            }
+            catch (Exception e) {
+                System.out.println("Error in getInput");
+            }
+        }
+        return null;
+    }
 
-	public static int getInt() {
+    public static int getInt() {
         
-		if (console != null) {
-			try (Scanner sc = new Scanner(console.reader())) {
-				String inputHandler = sc.nextLine();
+        if (console != null) {
+            try (Scanner sc = new Scanner(console.reader())) {
+                String inputHandler = sc.nextLine();
 
-		        //check if the data is an integer, else recursive
-		        if ( StringUtils.isNumeric(inputHandler) ) {
-		            return Integer.parseInt(inputHandler);
-		        }
-		        else {
-		            System.out.println("Error: Please enter an integer.");
-		            return getInt();
-		        }
-			}
-			catch (Exception e) {
-				System.out.println("Error in getInt");
-			}
-		}
-		return 0;
-		
-	}
+                //check if the data is an integer, else recursive
+                if ( StringUtils.isNumeric(inputHandler) ) {
+                    return Integer.parseInt(inputHandler);
+                }
+                else {
+                    System.out.println("Error: Please enter an integer.");
+                    return getInt();
+                }
+            }
+            catch (Exception e) {
+                System.out.println("Error in getInt");
+            }
+        }
+        return 0;
+        
+    }
 
 }

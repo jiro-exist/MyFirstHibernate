@@ -4,9 +4,9 @@
  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
   
  <hibernate-mapping>
-   <class name="com.exist.manio.myfirsthibernate.infra.persistence.Person" table="person">
+   <class name="com.exist.manio.myfirsthibernate.core.model.Person" table="person">
       <meta attribute="class-description">
-         This class contains the customer detail. 
+         This class contains the Person details.
       </meta>
       <id name="id" type="int" column="id">
          <generator class="identity"/>
@@ -14,5 +14,9 @@
       <property name="firstName" column="first_name" type="string"/>
       <property name="middleName" column="middle_name" type="string"/>
       <property name="lastName" column="last_name" type="string"/>
+      <property name="birthday" column="birthday" type="date"/>
+      <property name="isEmployed" column="is_employed" type="boolean"/>
+      <property name="gender" column="gender" type="string"/>
+      <property name="gwa" column="gwa" type="double"/>
    </class>
 </hibernate-mapping>
