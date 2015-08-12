@@ -19,10 +19,11 @@ public class HibernateMain {
 
 
     public static void main(String args[]) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+
+        MainMenuController controller = new MainMenuController();
 
         System.out.println("Welcome~");
-        String chosen = "";
+        String chosen = "", result = "";
 
         try {
             do {
@@ -30,34 +31,10 @@ public class HibernateMain {
 
                 chosen = ScannerUtil.getInput();
 
-                    Session session = HibernateUtil.getSessionFactory().openSession();
+                result = controller.processOption(chosen);
 
-                    //creating transaction object  
-                    Transaction t = session.beginTransaction();
+                System.out.println(result);
 
-                    Date date = formatter.parse("2015-06-06");
-
-                    Person person = new Person("test","test","test",date,true,69.9,GenderEnum.MALE.getDescription());
-
-                    session.save(person);//persisting the object
-
-                    t.commit();//transaction is commited
-
-                    Criteria cr = session.createCriteria(Person.class);
-                    cr.add(Restrictions.ilike("firstName","Liezel"));
-
-                    List<Person> personList = cr.list();
-                    System.out.println("count:" + personList.size());
-                    for(Person p : personList) {
-                        System.out.println("Name:" + p.getFirstName() + " " + p.getMiddleName() + " " + p.getLastName());
-                        p.setMiddleName("Cristobal");
-                        p.setLastName("Manio");
-                        t = session.beginTransaction();
-                        session.update(p);
-                        t.commit();
-                    }
-
-                    session.close();
             }while(!"0".equals(chosen));
         }
         catch (Exception e) {
@@ -94,19 +71,6 @@ public class HibernateMain {
         System.out.println("6:Gender");
         System.out.println("7:Employment Status");
         System.out.println("8:General Weighted Average");
-        System.out.println("0:Return");
-        System.out.println();
-    }
-
-    public static void printFindPersonMenu() {
-        System.out.println();
-        System.out.println("1:First Name");
-        System.out.println("2:Middle Name");
-        System.out.println("3:Last Name");
-        System.out.println("4:Birthday");
-        System.out.println("5:Gender");
-        System.out.println("6:Employment Status");
-        System.out.println("7:General Weighted Average");
         System.out.println("0:Return");
         System.out.println();
     }

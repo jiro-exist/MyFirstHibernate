@@ -17,7 +17,7 @@
 
   <modules>
     <module>model</module>
-    <!-- <module>service</module> -->
+    <module>service</module>
     <module>dao</module>
   </modules>
 </project>

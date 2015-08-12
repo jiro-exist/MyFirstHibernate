@@ -82,6 +82,15 @@ public class Person {
 
     }
 
+    public String toString() {
+        String personData = "Name:" + firstName + " " + middleName + " " + lastName + "\n"
+                 + "Birthday:" + birthday + "\n"
+                 + "Gender:" + gender + "\n"
+                 + "Employed:" + isEmployed + "\n"
+                 + "GWA:" + gwa;
+        return personData;
+    }
+
     public Person(String firstName, String middleName, String lastName, 
                         Date birthday, Boolean isEmployed, Double gwa, String gender) {
 

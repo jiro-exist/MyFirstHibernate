@@ -14,5 +14,15 @@
     <version>0.1</version>
 
     <name>Hibernate :: MyFirstHibernate :: Core :: DAO</name>
+    
+    <dependencies>
+
+        <dependency>
+            <groupId>com.exist.manio.myfirsthibernate.core</groupId>
+            <artifactId>model</artifactId>
+            <version>0.1</version>
+        </dependency>
+
+    </dependencies>
 
 </project>

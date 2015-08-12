@@ -19,15 +19,16 @@
         
         <dependency>
             <groupId>com.exist.manio.myfirsthibernate.core</groupId>
-            <artifactId>dao</artifactId>
+            <artifactId>service</artifactId>
             <version>0.1</version>
         </dependency>
 
         <dependency>
-            <groupId>com.exist.manio.myfirsthibernate.core</groupId>
-            <artifactId>model</artifactId>
-            <version>0.1</version>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.4.0</version>
         </dependency>
+
 
     </dependencies>
 

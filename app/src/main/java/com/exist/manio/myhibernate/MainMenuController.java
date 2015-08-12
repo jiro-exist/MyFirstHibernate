@@ -2,20 +2,33 @@ package com.exist.manio.myfirsthibernate.app;
 
 import java.util.List;
 
+import com.exist.manio.myfirsthibernate.core.service.MenuService;
 import com.exist.manio.myfirsthibernate.core.model.Person;
 import com.exist.manio.myfirsthibernate.core.model.Contact;
 import com.exist.manio.myfirsthibernate.core.model.ContactType;
 
-public interface MainMenuController {
+public class MainMenuController {
 
-    List<Person> listPerson();
-    void addPerson();
-    void editPerson();
-    void deletePerson();
-    /*void addContact();
-        Delete a records contact
-    void addContactType();
-        edit contact type
-        delete contact type*/
+	public String processOption(String chosen) {
+		switch(chosen) {
+			case "1"	:	return listPerson();
+
+			case "2"	:	return searchPerson();
+
+			case "0"	:	return "System Exiting.";
+
+			default		:	return "Incorrect Option";
+		}
+	}
+
+	private String listPerson() {
+		MenuService	menuService = new MenuService();
+		return menuService.getPersonList();
+	}
+
+	private String searchPerson() {
+		FindPersonMenu findPersonMenu = new FindPersonMenu();
+		return findPersonMenu.processSearch();
+	}
 
 }

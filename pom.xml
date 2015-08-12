@@ -8,6 +8,12 @@
     <version>0.1</version>
 
     <name>Hibernate :: MyFirstHibernate</name>
+    
+    <modules>
+        <module>infra</module>
+        <module>core</module>
+        <module>app</module>
+    </modules>
 
     <dependencies>
 
@@ -24,12 +30,6 @@
         </dependency>
         
     </dependencies>
-    
-    <modules>
-        <module>infra</module>
-        <module>core</module>
-        <module>app</module>
-    </modules>
 
     <build>
         
