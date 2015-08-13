@@ -7,7 +7,7 @@ public class Validator {
 
 	public static boolean validateDate(String date) {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
         	formatter.parse(date);
@@ -16,9 +16,11 @@ public class Validator {
 			System.out.println("parse false");
         	return false;
         }
+		System.out.println(formatter.toPattern());
 
 		DateValidator validator = DateValidator.getInstance();
-		if (validator.isValid(date)) {
+		if (validator.validate(date,formatter.toPattern()) != null) {
+		// if (validator.isValid(date)) {
 			System.out.println("true");
 		    return true;
 		} else {

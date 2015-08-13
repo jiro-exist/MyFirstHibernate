@@ -19,21 +19,27 @@ public class Dao {
 	}
 
 	public List<Person> queryPerson() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Criteria cr = session.createCriteria(Person.class);
-        List<Person> listPerson = cr.list();
-        session.close();
-        return listPerson;
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                Criteria cr = session.createCriteria(Person.class);
+                List<Person> listPerson = cr.list();
+                session.close();
+
+                return listPerson;
 	}
 
-	public List<Person> searchPersonByString(String columnName, String searchString) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Criteria cr = session.createCriteria(Person.class);
-        System.out.println("~~~~~~~~~~"+columnName + ":" + searchString);
-        cr.add(Restrictions.ilike(columnName,searchString));
-        List<Person> listPerson = cr.list();
-        session.close();
-        return listPerson;
+	public List<Person> searchPerson(String columnName, String searchString) {
+                List<Person> result = new ArrayList<>();
+
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                Criteria cr = session.createCriteria(Person.class);
+
+                cr.add(Restrictions.ilike(columnName,searchString));
+                result = cr.list();
+                session.close();
+
+                return result;
 	}
+
+        
 
 }

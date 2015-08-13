@@ -1,9 +1,10 @@
 package com.exist.manio.myfirsthibernate.app;
 
-import com.exist.manio.myfirsthibernate.core.service.MenuService;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+
+import com.exist.manio.myfirsthibernate.core.service.MenuService;
 
 public class FindPersonMenu {
 
@@ -53,13 +54,14 @@ public class FindPersonMenu {
         if(Validator.validateDate(dateInput)) {
             Date date = null;
             try {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 date = formatter.parse(dateInput);
             }
             catch (ParseException e) {
-                System.out.println(e);
+                System.out.println("DITO:"+e);
             }
-            return menuService.searchPersonList("lastName",date);
+            System.out.println(date);
+            return menuService.searchPersonList("birthday",date);
         }
         else {
             return "Invalid date";

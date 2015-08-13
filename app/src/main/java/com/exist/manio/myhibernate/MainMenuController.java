@@ -22,8 +22,8 @@ public class MainMenuController {
 	}
 
 	private String listPerson() {
-		MenuService	menuService = new MenuService();
-		return menuService.getPersonList();
+		DisplayPersonMenu displayPerson = new DisplayPersonMenu();
+		return displayPerson.processSearch();
 	}
 
 	private String searchPerson() {
