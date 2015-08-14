@@ -4,13 +4,43 @@ import java.util.List;
 import java.util.ArrayList;
 import java.lang.StringBuilder;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
+import java.text.ParseException;
 
 import com.exist.manio.myfirsthibernate.core.model.Person;
+import com.exist.manio.myfirsthibernate.core.model.Constants;
+import com.exist.manio.myfirsthibernate.core.model.GenderEnum;
 import com.exist.manio.myfirsthibernate.core.dao.PersonDao;
 
 public class MenuService {
+
+    public void addPerson(String firstName, String middleName, String lastName, 
+                        String birthday, String isEmployed, String gwa, String gender) throws ParseException {
+
+        PersonDao personDao = new PersonDao();
+
+        Boolean employed = false;
+        switch (isEmployed) {
+
+            case "yes"  :
+            case "y"    :
+                            employed = true;
+            case "n"    :
+            case "no"   :
+                            employed = false;
+
+        }
+
+        Person person = new Person(firstName, middleName, lastName,
+                                    Constants.DATEFORMAT.parse(birthday),
+                                    employed, 
+                                    Double.valueOf(gwa), 
+                                    GenderEnum.getByCode(gender).getDescription());
+
+        personDao.add(person);
+    }
 
     public String getPersons() {
         PersonDao personDao = new PersonDao();

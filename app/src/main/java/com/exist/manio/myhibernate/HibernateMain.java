@@ -1,8 +1,6 @@
 package com.exist.manio.myfirsthibernate.app;
 
 import java.util.List;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 
 import org.hibernate.HibernateException; 
 import org.hibernate.Session; 
@@ -49,7 +47,7 @@ public class HibernateMain {
         System.out.println();
         System.out.println("Choose from the list below:");
         System.out.println("1:Display everyone");
-        System.out.println("2:Search for a person");
+        System.out.println("2:Add a person");
         System.out.println("3:Edit a person's record");
         System.out.println("4:Delete a person's record");
         System.out.println("5:Add a person's contact");

@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
 import com.exist.manio.myfirsthibernate.core.service.MenuService;
+import com.exist.manio.myfirsthibernate.core.model.Constants;
 
 public class FindPersonMenu {
 
@@ -51,11 +52,10 @@ public class FindPersonMenu {
     private String findBirthday() {
         System.out.println("Enter the date (YYYY-MM-DD):");
         String dateInput = ScannerUtil.getInput();
-        if(Validator.validateDate(dateInput)) {
+        if(Validator.isDate(dateInput)) {
             Date date = null;
             try {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                date = formatter.parse(dateInput);
+                date = Constants.DATEFORMAT.parse(dateInput);
             }
             catch (ParseException e) {
                 System.out.println("DITO:"+e);

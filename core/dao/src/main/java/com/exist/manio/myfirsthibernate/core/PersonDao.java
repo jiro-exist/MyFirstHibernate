@@ -21,6 +21,15 @@ public class PersonDao {
     public PersonDao() {
     }
 
+    public void add(Person person) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
+
+        session.save(person);
+        t.commit();
+        session.close();
+    }
+
     public List<Person> queryPerson() {
         List<Person> result = new ArrayList<>();
 

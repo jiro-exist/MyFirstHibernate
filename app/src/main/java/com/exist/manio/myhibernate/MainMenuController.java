@@ -13,7 +13,7 @@ public class MainMenuController {
 		switch(chosen) {
 			case "1"	:	return listPerson();
 
-			case "2"	:	return searchPerson();
+			case "2"	:	return addPerson();
 
 			case "0"	:	return "System Exiting.";
 
@@ -26,9 +26,10 @@ public class MainMenuController {
 		return displayPerson.processSearch();
 	}
 
-	private String searchPerson() {
-		FindPersonMenu findPersonMenu = new FindPersonMenu();
-		return findPersonMenu.processSearch();
+	private String addPerson() {
+		AddPersonMenu addPersonMenu = new AddPersonMenu();
+		addPersonMenu.add();
+		return "Successfully added a person.";
 	}
 
 }

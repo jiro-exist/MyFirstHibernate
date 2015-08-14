@@ -83,7 +83,8 @@ public class Person {
     }
 
     public String toString() {
-        String personData = "Name:" + firstName + " " + middleName + " " + lastName + "\n"
+        String personData = "ID:" + id + "\n"
+                 + "Name:" + firstName + " " + middleName + " " + lastName + "\n"
                  + "Birthday:" + birthday + "\n"
                  + "Gender:" + gender + "\n"
                  + "Employed:" + isEmployed + "\n"
