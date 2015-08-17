@@ -9,27 +9,51 @@ import com.exist.manio.myfirsthibernate.core.model.ContactType;
 
 public class MainMenuController {
 
-	public String processOption(String chosen) {
+	public void processOption(String chosen) {
 		switch(chosen) {
-			case "1"	:	return listPerson();
+			case "1"	:	listPerson();
+							break;
 
-			case "2"	:	return addPerson();
+			case "2"	:	addPerson();
+							break;
 
-			case "0"	:	return "System Exiting.";
+			case "3"	:	editPerson();
+							break;
 
-			default		:	return "Incorrect Option";
+			case "4"	:	deletePerson();
+							break;
+
+			case "0"	:	System.out.println("System Exiting.");
+							break;
+
+			default		:	System.out.println("Incorrect Option");
 		}
 	}
 
-	private String listPerson() {
+	private void listPerson() {
 		DisplayPersonMenu displayPerson = new DisplayPersonMenu();
-		return displayPerson.processSearch();
+		System.out.println(displayPerson.processSearch());
 	}
 
-	private String addPerson() {
+	private void addPerson() {
 		AddPersonMenu addPersonMenu = new AddPersonMenu();
 		addPersonMenu.add();
-		return "Successfully added a person.";
+		System.out.println("Successfully added a person.");
+	}
+
+	private void editPerson() {
+		EditPersonMenu editPersonMenu = new EditPersonMenu();
+		editPersonMenu.edit();
+	}
+
+	private void deletePerson() {
+		DeletePersonMenu deletePersonMenu = new DeletePersonMenu();
+		if(deletePersonMenu.delete()) {
+			System.out.println("Person successfully deleted");
+		}
+		else {
+			System.out.println("Person was not deleted");
+		}
 	}
 
 }

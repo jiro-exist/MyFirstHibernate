@@ -34,6 +34,15 @@ public class Validator {
 
     	}
     }
+    
+    public static boolean isInt(String str) {
+        if ("".equals(str)) {
+            return false;
+        }
+        else {
+          return str.matches("\\d*");  //match an int
+        }
+    }
 
     public static boolean isNumeric(String str) {
         if ("".equals(str)) {

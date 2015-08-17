@@ -1,11 +1,15 @@
 package com.exist.manio.myfirsthibernate.app;
 
+import java.util.List;
 import java.util.Date;
+import java.lang.StringBuilder;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
 import com.exist.manio.myfirsthibernate.core.service.MenuService;
 import com.exist.manio.myfirsthibernate.core.model.Constants;
+import com.exist.manio.myfirsthibernate.core.model.Person;
+
 
 public class FindPersonMenu {
 
@@ -38,15 +42,48 @@ public class FindPersonMenu {
     }
 
     private String findFirstName() {
-        return menuService.searchPersonList("firstName",getSearchString());
+        List<Person> personList = menuService.searchPersonList("firstName",getSearchString());
+        StringBuilder sr = new StringBuilder();
+        if(personList.size() > 0) {
+            for(Person p : personList) {
+                sr.append(p.toString());
+                sr.append("\n");
+            }
+        }
+        else {
+            sr.append("Person not found");
+        }
+        return sr.toString();
     }
 
     private String findMiddleName() {
-        return menuService.searchPersonList("middleName",getSearchString());
+        List<Person> personList = menuService.searchPersonList("middleName",getSearchString());
+        StringBuilder sr = new StringBuilder();
+        if(personList.size() > 0) {
+            for(Person p : personList) {
+                sr.append(p.toString());
+                sr.append("\n");
+            }
+        }
+        else {
+            sr.append("Person not found");
+        }
+        return sr.toString();
     }
 
     private String findLastName() {
-        return menuService.searchPersonList("lastName",getSearchString());
+        List<Person> personList = menuService.searchPersonList("lastName",getSearchString());
+        StringBuilder sr = new StringBuilder();
+        if(personList.size() > 0) {
+            for(Person p : personList) {
+                sr.append(p.toString());
+                sr.append("\n");
+            }
+        }
+        else {
+            sr.append("Person not found");
+        }
+        return sr.toString();
     }
 
     private String findBirthday() {
@@ -61,7 +98,18 @@ public class FindPersonMenu {
                 System.out.println("DITO:"+e);
             }
             System.out.println(date);
-            return menuService.searchPersonList("birthday",date);
+            List<Person> personList = menuService.searchPersonList("birthday",date);
+            StringBuilder sr = new StringBuilder();
+            if(personList.size() > 0) {
+                for(Person p : personList) {
+                    sr.append(p.toString());
+                    sr.append("\n");
+                }
+            }
+            else {
+                sr.append("Person not found");
+            }
+            return sr.toString();
         }
         else {
             return "Invalid date";

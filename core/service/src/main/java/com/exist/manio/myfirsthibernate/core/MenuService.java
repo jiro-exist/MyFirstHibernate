@@ -2,7 +2,6 @@ package com.exist.manio.myfirsthibernate.core.service;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.lang.StringBuilder;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -21,7 +20,7 @@ public class MenuService {
 
         PersonDao personDao = new PersonDao();
 
-        Boolean employed = false;
+        Boolean employed = null;
         switch (isEmployed) {
 
             case "yes"  :
@@ -42,93 +41,101 @@ public class MenuService {
         personDao.add(person);
     }
 
-    public String getPersons() {
+    public void editPerson(Person person, String firstName, String middleName, String lastName, 
+                        String birthday, String isEmployed, String gwa, String gender) throws ParseException {
+
         PersonDao personDao = new PersonDao();
-        List<Person> personList = personDao.queryPerson();
-        StringBuilder sr = new StringBuilder();
-        if(personList.size() > 0) {
-            for(Person p : personList) {
-                sr.append(p.toString());
-                sr.append("\n");
-            }
+
+        Boolean employed = null;
+        switch (isEmployed) {
+
+            case "yes"  :
+            case "y"    :
+                            employed = true;
+            case "n"    :
+            case "no"   :
+                            employed = false;
+
         }
-        else {
-            sr.append("Person not found");
+
+
+        if(!"".equals(firstName)) {
+            person.setFirstName(firstName);
         }
-        return sr.toString();
+
+        if(!"".equals(middleName)) {
+            person.setMiddleName(middleName);
+        }
+
+        if(!"".equals(lastName)) {
+            person.setLastName(lastName);
+        }
+
+        if(!"".equals(birthday)) {
+            person.setBirthday(Constants.DATEFORMAT.parse(birthday));
+        }
+
+        if(employed != null) {
+            person.setIsEmployed(employed);
+        }
+
+        if(!"".equals(gwa)) {
+            person.setGwa(Double.valueOf(gwa));
+        }
+
+        if(!"".equals(gender)) {
+            person.setGender(gender);
+        }
+
+        personDao.update(person);
     }
 
-    public String getPersons(Comparator comparator, String sortOrder) {
+    public List<Person> getPersons() {
         PersonDao personDao = new PersonDao();
         List<Person> personList = personDao.queryPerson();
-        StringBuilder sr = new StringBuilder();
-        if(personList.size() > 0) {
-            if("asc".equals(sortOrder)) {
-                Collections.sort(personList,comparator);
-            }
-            else {
-                Collections.sort(personList,Collections.reverseOrder(comparator));
-            }
-            for(Person p : personList) {
-                sr.append(p.toString());
-                sr.append("\n");
-            }
-        }
-        else {
-            sr.append("Person not found");
-        }
-        return sr.toString();
+        return personList;
     }
 
-    public String getPersons(String columnName, String sortOrder) {
+    public List<Person> getPersons(Comparator comparator, String sortOrder) {
+        PersonDao personDao = new PersonDao();
+        List<Person> personList = personDao.queryPerson();
+
+        if("asc".equals(sortOrder)) {
+            Collections.sort(personList,comparator);
+        }
+        else {
+            Collections.sort(personList,Collections.reverseOrder(comparator));
+        }
+
+        return personList;
+    }
+
+    public List<Person> getPersons(String columnName, String sortOrder) {
         PersonDao personDao = new PersonDao();
         List<Person> personList = personDao.queryPerson(columnName, sortOrder);
-        StringBuilder sr = new StringBuilder();
-        if(personList.size() > 0) {
-            for(Person p : personList) {
-                sr.append(p.toString());
-                sr.append("\n");
-            }
-        }
-        else {
-            sr.append("Person not found");
-        }
-        return sr.toString();
+        return personList;
     }
 
-    public String searchPersonList(String columnName, String searchString) {
+    public List<Person> searchPersonList(String columnName, Date date) {
+        PersonDao personDao = new PersonDao();
+        List<Person> personList = personDao.searchPerson(columnName, date);
+        return personList;
+    }
+
+    public List<Person> searchPersonList(String columnName, String searchString) {
         PersonDao personDao = new PersonDao();
         List<Person> personList = personDao.searchPerson(columnName, searchString);
-        StringBuilder sr = new StringBuilder();
-        if(personList.size() > 0) {
-            for(Person p : personList) {
-                sr.append(p.toString());
-                sr.append("\n");
-            }
-        }
-        else {
-            sr.append("Person not found");
-        }
-        return sr.toString();
+        return personList;
     }
 
-    public String searchPersonList(String columnName, Date date) {
+    public List<Person> searchPersonList(String columnName, int id) {
         PersonDao personDao = new PersonDao();
-                System.out.println("a");
-        List<Person> personList = personDao.searchPerson(columnName, date);
-                System.out.println("b");
-        StringBuilder sr = new StringBuilder();
-        if(personList.size() > 0) {
-            for(Person p : personList) {
-                System.out.println("aa");
-                sr.append(p.toString());
-                System.out.println("aa");
-                sr.append("\n");
-            }
-        }
-        else {
-            sr.append("Person not found");
-        }
-        return sr.toString();
+        List<Person> personList = personDao.searchPerson(columnName, id);
+        return personList;
+    }
+
+    public boolean deletePerson(int id) {
+        PersonDao personDao = new PersonDao();
+        return personDao.deletePerson(id);
     }
 }

@@ -2,6 +2,7 @@ package com.exist.manio.myfirsthibernate.app;
 
 import java.util.Date;
 import java.text.ParseException;
+import java.lang.StringBuilder;
 
 import com.exist.manio.myfirsthibernate.core.model.Person;
 import com.exist.manio.myfirsthibernate.core.service.MenuService;
@@ -33,14 +34,17 @@ public class AddPersonMenu {
 		while(!Validator.isDate(birthday)) {
 			birthday = ScannerUtil.getInput();
 		}
+
 		System.out.println("Gender (M/F):");
 		while(!Validator.isGender(gender)) {
 			gender = ScannerUtil.getInput();
 		}
+
 		System.out.println("General Weigthed Average:");
 		while(!Validator.isNumeric(gwa)) {
 			gwa = ScannerUtil.getInput();
 		}
+
 		System.out.println("Currently Employed? (Y/N):");
 		while(!Validator.isBoolean(isEmployed)) {
 			isEmployed = ScannerUtil.getInput();
@@ -48,14 +52,12 @@ public class AddPersonMenu {
 
     	MenuService menuService = new MenuService();
 
-
         try {
     		menuService.addPerson(firstName, middleName, lastName, birthday, isEmployed, gwa, gender);
         }
         catch (ParseException e) {
 			System.out.println("parse false");
         }
-
 
 	}
 

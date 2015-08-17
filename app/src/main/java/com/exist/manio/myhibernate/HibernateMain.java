@@ -21,7 +21,7 @@ public class HibernateMain {
         MainMenuController controller = new MainMenuController();
 
         System.out.println("Welcome~");
-        String chosen = "", result = "";
+        String chosen = "";
 
         try {
             do {
@@ -29,9 +29,7 @@ public class HibernateMain {
 
                 chosen = ScannerUtil.getInput();
 
-                result = controller.processOption(chosen);
-
-                System.out.println(result);
+                controller.processOption(chosen);
 
             }while(!"0".equals(chosen));
         }
@@ -56,20 +54,6 @@ public class HibernateMain {
         System.out.println("8:Edit a contact type");
         System.out.println("9:Delete a contact type");
         System.out.println("0:Exit");
-        System.out.println();
-    }
-
-    public static void printEditPersonMenu() {
-        System.out.println();
-        System.out.println("1:All");
-        System.out.println("2:First Name");
-        System.out.println("3:Middle Name");
-        System.out.println("4:Last Name");
-        System.out.println("5:Birthday");
-        System.out.println("6:Gender");
-        System.out.println("7:Employment Status");
-        System.out.println("8:General Weighted Average");
-        System.out.println("0:Return");
         System.out.println();
     }
 

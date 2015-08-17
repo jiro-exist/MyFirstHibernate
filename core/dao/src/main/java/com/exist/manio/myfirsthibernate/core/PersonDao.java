@@ -42,6 +42,32 @@ public class PersonDao {
         return result;
     }
 
+    public void update(Person person) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
+
+        session.update(person);
+        t.commit();
+
+        session.close();
+    }
+
+    public boolean deletePerson(int id) {
+        boolean result = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
+        Object persistentInstance = session.load(Person.class, id);
+
+        if (persistentInstance != null) {
+            session.delete(persistentInstance);
+            t.commit();
+            result = true;
+        }
+
+        session.close();
+        return result;
+    }
+
     public List<Person> queryPerson(String columnName, String sortOrder) {
         List<Person> result = new ArrayList<>();
 
@@ -61,6 +87,24 @@ public class PersonDao {
 
         result = cr.list();
         session.close();
+
+        return result;
+    }
+
+    public List<Person> searchPerson(String columnName, int id) {
+        List<Person> result = new ArrayList<>();
+        System.out.println("1");
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        System.out.println("2");
+        Criteria cr = session.createCriteria(Person.class);
+        System.out.println("3");
+
+        cr.add(Restrictions.eq(columnName, id));
+        System.out.println("4");
+        result = cr.list();
+        System.out.println("5");
+        session.close();
+        System.out.println("6");
 
         return result;
     }
