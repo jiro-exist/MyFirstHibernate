@@ -13,7 +13,7 @@ import com.exist.manio.myfirsthibernate.core.model.Constants;
 import com.exist.manio.myfirsthibernate.core.model.GenderEnum;
 import com.exist.manio.myfirsthibernate.core.dao.PersonDao;
 
-public class MenuService {
+public class ContactMenuService {
 
     public void addPerson(String firstName, String middleName, String lastName, 
                         String birthday, String isEmployed, String gwa, String gender) throws ParseException {
@@ -134,8 +134,8 @@ public class MenuService {
         return personList;
     }
 
-    public boolean deletePerson(int id) {
+    public boolean delete(int id) {
         PersonDao personDao = new PersonDao();
-        return personDao.deletePerson(id);
+        return personDao.delete(id);
     }
 }

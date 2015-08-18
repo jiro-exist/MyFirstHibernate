@@ -6,14 +6,14 @@ import java.lang.StringBuilder;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
-import com.exist.manio.myfirsthibernate.core.service.MenuService;
+import com.exist.manio.myfirsthibernate.core.service.PersonMenuService;
 import com.exist.manio.myfirsthibernate.core.model.Constants;
 import com.exist.manio.myfirsthibernate.core.model.Person;
 
 
 public class FindPersonMenu {
 
-    MenuService menuService = new MenuService();
+    PersonMenuService personMenuService = new PersonMenuService();
 
     public String processSearch() {
         printFindPersonMenu();
@@ -42,7 +42,7 @@ public class FindPersonMenu {
     }
 
     private String findFirstName() {
-        List<Person> personList = menuService.searchPersonList("firstName",getSearchString());
+        List<Person> personList = personMenuService.searchPersonList("firstName",getSearchString());
         StringBuilder sr = new StringBuilder();
         if(personList.size() > 0) {
             for(Person p : personList) {
@@ -57,7 +57,7 @@ public class FindPersonMenu {
     }
 
     private String findMiddleName() {
-        List<Person> personList = menuService.searchPersonList("middleName",getSearchString());
+        List<Person> personList = personMenuService.searchPersonList("middleName",getSearchString());
         StringBuilder sr = new StringBuilder();
         if(personList.size() > 0) {
             for(Person p : personList) {
@@ -72,7 +72,7 @@ public class FindPersonMenu {
     }
 
     private String findLastName() {
-        List<Person> personList = menuService.searchPersonList("lastName",getSearchString());
+        List<Person> personList = personMenuService.searchPersonList("lastName",getSearchString());
         StringBuilder sr = new StringBuilder();
         if(personList.size() > 0) {
             for(Person p : personList) {
@@ -98,7 +98,7 @@ public class FindPersonMenu {
                 System.out.println("DITO:"+e);
             }
             System.out.println(date);
-            List<Person> personList = menuService.searchPersonList("birthday",date);
+            List<Person> personList = personMenuService.searchPersonList("birthday",date);
             StringBuilder sr = new StringBuilder();
             if(personList.size() > 0) {
                 for(Person p : personList) {

@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.lang.StringBuilder;
 
 import com.exist.manio.myfirsthibernate.core.model.Person;
-import com.exist.manio.myfirsthibernate.core.service.MenuService;
+import com.exist.manio.myfirsthibernate.core.service.PersonMenuService;
 
 public class AddPersonMenu {
 
@@ -50,7 +50,7 @@ public class AddPersonMenu {
 			isEmployed = ScannerUtil.getInput();
 		}
 
-    	MenuService menuService = new MenuService();
+    	PersonMenuService menuService = new PersonMenuService();
 
         try {
     		menuService.addPerson(firstName, middleName, lastName, birthday, isEmployed, gwa, gender);

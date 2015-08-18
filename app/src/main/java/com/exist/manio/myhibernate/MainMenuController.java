@@ -2,7 +2,7 @@ package com.exist.manio.myfirsthibernate.app;
 
 import java.util.List;
 
-import com.exist.manio.myfirsthibernate.core.service.MenuService;
+import com.exist.manio.myfirsthibernate.core.service. PersonMenuService;
 import com.exist.manio.myfirsthibernate.core.model.Person;
 import com.exist.manio.myfirsthibernate.core.model.Contact;
 import com.exist.manio.myfirsthibernate.core.model.ContactType;
@@ -21,6 +21,9 @@ public class MainMenuController {
 							break;
 
 			case "4"	:	deletePerson();
+							break;
+
+			case "5"	:	addContact();
 							break;
 
 			case "0"	:	System.out.println("System Exiting.");
@@ -52,8 +55,12 @@ public class MainMenuController {
 			System.out.println("Person successfully deleted");
 		}
 		else {
-			System.out.println("Person was not deleted");
+			System.out.println("Person was not found");
 		}
+	}
+
+	private void addContact() {
+		
 	}
 
 }

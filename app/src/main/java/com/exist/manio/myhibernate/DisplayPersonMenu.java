@@ -6,13 +6,13 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
-import com.exist.manio.myfirsthibernate.core.service.MenuService;
+import com.exist.manio.myfirsthibernate.core.service.PersonMenuService;
 import com.exist.manio.myfirsthibernate.core.model.PersonGwaComparator;
 import com.exist.manio.myfirsthibernate.core.model.Person;
 
 public class DisplayPersonMenu {
 
-    MenuService menuService = new MenuService();
+    PersonMenuService personMenuService = new PersonMenuService();
 
     public String processSearch() {
         printDisplayPersonMenu();
@@ -36,7 +36,7 @@ public class DisplayPersonMenu {
             return "Incorrect sort order";
         }
 
-        return toString(menuService.getPersons("lastName", sortOrder));
+        return toString(personMenuService.getPersons("lastName", sortOrder));
     }
 
     private String orderByBirthday() {
@@ -46,7 +46,7 @@ public class DisplayPersonMenu {
             return "Incorrect sort order";
         }
         
-        return toString(menuService.getPersons("lastName", sortOrder));
+        return toString(personMenuService.getPersons("lastName", sortOrder));
     }
 
     private String orderByName() {
@@ -56,7 +56,7 @@ public class DisplayPersonMenu {
             return "Incorrect sort order";
         }
         
-        return toString(menuService.getPersons("lastName", sortOrder));
+        return toString(personMenuService.getPersons("lastName", sortOrder));
     }
 
     private String getSortOrder() {

@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.lang.StringBuilder;
 
 import com.exist.manio.myfirsthibernate.core.model.Person;
-import com.exist.manio.myfirsthibernate.core.service.MenuService;
+import com.exist.manio.myfirsthibernate.core.service.PersonMenuService;
 
 public class EditPersonMenu {
 
 	public void edit() {
 
-    	MenuService menuService = new MenuService();
+    	PersonMenuService personMenuService = new PersonMenuService();
 		String firstName = "", middleName = "", lastName = "", birthday = "", getInput = "", gwa = "", isEmployed = "", gender = "", id = "";
 		Person person = new Person();
 
@@ -21,7 +21,7 @@ public class EditPersonMenu {
 		while(!Validator.isInt(id)) {
 			id = ScannerUtil.getInput();
 		}
-        List<Person> personList = menuService.searchPersonList("id",Integer.parseInt(id));
+        List<Person> personList = personMenuService.searchPersonList("id",Integer.parseInt(id));
         
 		if(personList.size() > 0) {
 			person = personList.get(0);
@@ -63,7 +63,7 @@ public class EditPersonMenu {
 			} while(!Validator.isBoolean(isEmployed) && !"".equals(isEmployed));
 
 	        try {
-	    		menuService.editPerson(person, firstName, middleName, lastName, birthday, isEmployed, gwa, gender);
+	    		personMenuService.editPerson(person, firstName, middleName, lastName, birthday, isEmployed, gwa, gender);
 	        }
 	        catch (ParseException e) {
 				System.out.println("parse false");
