@@ -8,17 +8,18 @@ public class HibernateUtil {
     private static final SessionFactory sessionFactory = createSession();
 
     private static final SessionFactory createSession() {
-        // try {
-        if(sessionFactory == null) {
-            return new Configuration().configure().buildSessionFactory();
-        } else {
-            return sessionFactory;
+        try {
+            if(sessionFactory == null) {
+                return new Configuration().configure().buildSessionFactory();
+            } else {
+                return sessionFactory;
+            }
         }
-        // }
-        // catch (ExceptionInInitializerError e) {
-        //     System.out.println("Session factory initialization failed!");
-        //     throw new ExceptionInInitializerError(e);
-        // }
+        catch (ExceptionInInitializerError e) {
+            System.out.println("Session factory initialization failed!");
+            e.printStackTrace();
+            throw new ExceptionInInitializerError(e);
+        }
     }
 
     public static SessionFactory getSessionFactory() {

@@ -17,16 +17,28 @@ public class DisplayPersonMenu {
     public String processSearch() {
         printDisplayPersonMenu();
         switch(ScannerUtil.getInput()) {
-            case "1"    :   return orderByGWA();
+            case "1"    :   return orderByID();
 
-            case "2"    :   return orderByBirthday();
+            case "2"    :   return orderByGWA();
 
-            case "3"    :   return orderByName();
+            case "3"    :   return orderByBirthday();
+
+            case "4"    :   return orderByName();
 
             case "0"    :   return "";
 
             default     :   return null;
         }
+    }
+
+    private String orderByID() {
+        String sortOrder = getSortOrder();
+        
+        if("".equals(sortOrder)) {
+            return "Incorrect sort order";
+        }
+
+        return toString(personMenuService.getPersons("id", sortOrder));
     }
 
     private String orderByGWA() {
@@ -36,7 +48,7 @@ public class DisplayPersonMenu {
             return "Incorrect sort order";
         }
 
-        return toString(personMenuService.getPersons("lastName", sortOrder));
+        return toString(personMenuService.getPersons("gwa", sortOrder));
     }
 
     private String orderByBirthday() {
@@ -46,7 +58,7 @@ public class DisplayPersonMenu {
             return "Incorrect sort order";
         }
         
-        return toString(personMenuService.getPersons("lastName", sortOrder));
+        return toString(personMenuService.getPersons("birthday", sortOrder));
     }
 
     private String orderByName() {
@@ -91,9 +103,10 @@ public class DisplayPersonMenu {
     private void printDisplayPersonMenu() {
         System.out.println();
         System.out.println("Choose a sort option:"); 
-        System.out.println("1:GWA");
-        System.out.println("2:Birthday");
-        System.out.println("3:Last Name");
+        System.out.println("1:ID");
+        System.out.println("2:GWA");
+        System.out.println("3:Birthday");
+        System.out.println("4:Last Name");
         System.out.println("0:Return");
         System.out.println();
     }

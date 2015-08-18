@@ -18,7 +18,9 @@
         <property name="format_sql">true</property>
 
          <!-- List of XML mapping files -->
-         <mapping resource="Person.hbm.xml"/>
+        <mapping resource="Person.hbm.xml"/>
+        <mapping resource="Contact.hbm.xml"/>
+        <mapping resource="ContactType.hbm.xml"/>
 
 </session-factory>
 </hibernate-configuration>

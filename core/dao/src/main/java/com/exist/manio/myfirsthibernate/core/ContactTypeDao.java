@@ -58,11 +58,14 @@ public class ContactTypeDao {
 
     public List<ContactType> queryContactType() {
         List<ContactType> result = new ArrayList<>();
+        System.out.println("contact_type");
 
         Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
         Criteria cr = session.createCriteria(ContactType.class);
 
         result = cr.list();
+        t.commit();
         session.close();
 
         return result;
@@ -93,18 +96,12 @@ public class ContactTypeDao {
 
     public List<ContactType> searchContactType(String columnName, int id) {
         List<ContactType> result = new ArrayList<>();
-        System.out.println("1");
         Session session = HibernateUtil.getSessionFactory().openSession();
-        System.out.println("2");
         Criteria cr = session.createCriteria(ContactType.class);
-        System.out.println("3");
 
         cr.add(Restrictions.eq(columnName, id));
-        System.out.println("4");
         result = cr.list();
-        System.out.println("5");
         session.close();
-        System.out.println("6");
 
         return result;
     }

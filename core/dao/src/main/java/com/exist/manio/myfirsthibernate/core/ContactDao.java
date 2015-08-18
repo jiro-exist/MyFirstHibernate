@@ -40,11 +40,11 @@ public class ContactDao {
         session.close();
     }
 
-    public boolean delete(int id) {
+    public boolean delete(Contact contact) {
         boolean result = false;
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction t = session.beginTransaction();
-        Object persistentInstance = session.load(Contact.class, id);
+        Object persistentInstance = session.load(Contact.class, contact.getId());
 
         if (persistentInstance != null) {
             session.delete(persistentInstance);
@@ -60,9 +60,11 @@ public class ContactDao {
         List<Contact> result = new ArrayList<>();
 
         Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
         Criteria cr = session.createCriteria(Contact.class);
 
         result = cr.list();
+        t.commit();
         session.close();
 
         return result;
@@ -72,6 +74,7 @@ public class ContactDao {
         List<Contact> result = new ArrayList<>();
 
         Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
         Criteria cr = session.createCriteria(Contact.class);
         switch (sortOrder) {
 
@@ -86,6 +89,7 @@ public class ContactDao {
         }
 
         result = cr.list();
+        t.commit();
         session.close();
 
         return result;
@@ -93,18 +97,12 @@ public class ContactDao {
 
     public List<Contact> searchContact(String columnName, int id) {
         List<Contact> result = new ArrayList<>();
-        System.out.println("1");
         Session session = HibernateUtil.getSessionFactory().openSession();
-        System.out.println("2");
         Criteria cr = session.createCriteria(Contact.class);
-        System.out.println("3");
 
         cr.add(Restrictions.eq(columnName, id));
-        System.out.println("4");
         result = cr.list();
-        System.out.println("5");
         session.close();
-        System.out.println("6");
 
         return result;
     }
@@ -113,10 +111,12 @@ public class ContactDao {
         List<Contact> result = new ArrayList<>();
 
         Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
         Criteria cr = session.createCriteria(Contact.class);
 
         cr.add(Restrictions.ilike(columnName,searchString));
         result = cr.list();
+        t.commit();
         session.close();
 
         return result;
@@ -126,10 +126,12 @@ public class ContactDao {
         List<Contact> result = new ArrayList<>();
 
         Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
         Criteria cr = session.createCriteria(Contact.class);
 
         cr.add(Restrictions.ilike(columnName,searchDouble));
         result = cr.list();
+        t.commit();
         session.close();
 
         return result;
@@ -141,10 +143,12 @@ public class ContactDao {
         SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd");
         
         Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
         Criteria cr = session.createCriteria(Contact.class);
 
         cr.add(Restrictions.eq(columnName,formatter.format(date)));
         result = cr.list();
+        t.commit();
         session.close();
 
         return result;

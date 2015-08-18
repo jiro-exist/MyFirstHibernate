@@ -8,7 +8,7 @@
       <meta attribute="class-description">
          This class contains the types of contacts.
       </meta>
-      <property name="contactCode" column="contact_code" type="string"/>
+      <id name="contactCode" column="contact_code" type="string"/>
       <property name="contactDesc" column="contact_desc" type="string"/>
    </class>
 </hibernate-mapping>

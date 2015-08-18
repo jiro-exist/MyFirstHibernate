@@ -2,9 +2,10 @@ package com.exist.manio.myfirsthibernate.core.model;
 
 public class Contact {
 
-    int id;
-    String contactCode;
-    String contactValue;
+    private int id;
+    private int contactId;
+    private String contactCode;
+    private String contactValue;
 
     public void setId(int id) {
         this.id = id;
@@ -12,6 +13,14 @@ public class Contact {
 
     public int getId() {
         return this.id;
+    }
+
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
+    }
+
+    public int getContactId() {
+        return this.contactId;
     }
 
     public void setContactCode(String contactCode) {
@@ -30,11 +39,38 @@ public class Contact {
         return this.contactValue;
     }
 
+    public String toString() {
+        return  "Contact ID:" + contactId + "\n"
+            +   "Contact Code:" + contactCode + "\n"
+            +   "Contact Value:" + contactValue + "\n";
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!this.getClass().equals(obj.getClass())) {
+            return false;
+        }
+        Contact obj2 = (Contact)obj;
+        if((this.id == obj2.getId()) && (this.contactCode.equals(obj2.getContactCode())) && (this.contactValue.equals(obj2.getContactValue())) ) {
+            return true;
+        }
+        return false;
+    }
+
+    public int hashCode() {
+        int tmp = 0;
+        tmp = ( "" + id + contactId ).hashCode();
+        return tmp;
+    }
+
     public Contact() {
 
     }
 
-    public Contact(String contactCode, String contactValue) {
+    public Contact(int id, String contactCode, String contactValue) {
+        this.id = id;
         this.contactCode = contactCode;
         this.contactValue = contactValue;
     }

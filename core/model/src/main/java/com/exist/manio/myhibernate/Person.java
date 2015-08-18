@@ -1,18 +1,20 @@
 package com.exist.manio.myfirsthibernate.core.model;
 
 import java.util.Date;
+import java.util.Set;
+import java.util.ArrayList;
 
 public class Person {
 
-    int id;
-    String firstName;
-    String middleName;
-    String lastName;
-    Date birthday;
-    Boolean isEmployed;
-    Double gwa;
-    String gender;
-
+    private int id;
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private Date birthday;
+    private Boolean isEmployed;
+    private Double gwa;
+    private String gender;
+    private Set<Contact> contactList;
 
     public void setId(int id) {
         this.id = id;
@@ -78,6 +80,16 @@ public class Person {
         return this.gender;
     }
 
+    public void setContactList(Set<Contact> contactList) {
+        if(contactList != null) {
+            this.contactList = contactList;
+        }
+    }
+
+    public Set<Contact> getContactList () {
+        return this.contactList;
+    }
+
     public Person() {
 
     }
@@ -88,7 +100,11 @@ public class Person {
                  + "Birthday:" + birthday + "\n"
                  + "Gender:" + gender + "\n"
                  + "Employed:" + isEmployed + "\n"
-                 + "GWA:" + gwa;
+                 + "GWA:" + gwa + "\n"
+                 + "Contacts:" + "\n";
+        for(Contact contact : contactList) {
+            personData += contact.toString();
+        }
         return personData;
     }
 

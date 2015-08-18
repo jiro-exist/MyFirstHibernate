@@ -49,10 +49,8 @@ public class HibernateMain {
         System.out.println("3:Edit a person's record");
         System.out.println("4:Delete a person's record");
         System.out.println("5:Add a person's contact");
-        System.out.println("6:Delete a person's contact");
-        System.out.println("7:Add a contact type");
-        System.out.println("8:Edit a contact type");
-        System.out.println("9:Delete a contact type");
+        System.out.println("6:Edit a person's contact");
+        System.out.println("7:Delete a person's contact");
         System.out.println("0:Exit");
         System.out.println();
     }

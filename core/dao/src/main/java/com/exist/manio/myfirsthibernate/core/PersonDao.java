@@ -60,9 +60,11 @@ public class PersonDao {
         List<Person> result = new ArrayList<>();
 
         Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
         Criteria cr = session.createCriteria(Person.class);
 
         result = cr.list();
+        t.commit();
         session.close();
 
         return result;
@@ -72,6 +74,7 @@ public class PersonDao {
         List<Person> result = new ArrayList<>();
 
         Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
         Criteria cr = session.createCriteria(Person.class);
         switch (sortOrder) {
 
@@ -86,6 +89,7 @@ public class PersonDao {
         }
 
         result = cr.list();
+        t.commit();
         session.close();
 
         return result;
@@ -93,18 +97,14 @@ public class PersonDao {
 
     public List<Person> searchPerson(String columnName, int id) {
         List<Person> result = new ArrayList<>();
-        System.out.println("1");
         Session session = HibernateUtil.getSessionFactory().openSession();
-        System.out.println("2");
+        Transaction t = session.beginTransaction();
         Criteria cr = session.createCriteria(Person.class);
-        System.out.println("3");
 
         cr.add(Restrictions.eq(columnName, id));
-        System.out.println("4");
         result = cr.list();
-        System.out.println("5");
+        t.commit();
         session.close();
-        System.out.println("6");
 
         return result;
     }
@@ -113,10 +113,12 @@ public class PersonDao {
         List<Person> result = new ArrayList<>();
 
         Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
         Criteria cr = session.createCriteria(Person.class);
 
         cr.add(Restrictions.ilike(columnName,searchString));
         result = cr.list();
+        t.commit();
         session.close();
 
         return result;
@@ -126,10 +128,12 @@ public class PersonDao {
         List<Person> result = new ArrayList<>();
 
         Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
         Criteria cr = session.createCriteria(Person.class);
 
         cr.add(Restrictions.ilike(columnName,searchDouble));
         result = cr.list();
+        t.commit();
         session.close();
 
         return result;
@@ -141,10 +145,12 @@ public class PersonDao {
         SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd");
         
         Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
         Criteria cr = session.createCriteria(Person.class);
 
         cr.add(Restrictions.eq(columnName,formatter.format(date)));
         result = cr.list();
+        t.commit();
         session.close();
 
         return result;

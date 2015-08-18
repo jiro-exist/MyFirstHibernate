@@ -2,8 +2,8 @@ package com.exist.manio.myfirsthibernate.core.model;
 
 public class ContactType {
 
-    String contactCode;
-    String contactDesc;
+    private String contactCode;
+    private String contactDesc;
 
     public void setContactCode(String contactCode) {
         this.contactCode = contactCode;
@@ -19,6 +19,10 @@ public class ContactType {
 
     public String getContactDesc() {
         return this.contactDesc;
+    }
+
+    public String toString() {
+        return contactDesc + " (" + contactCode + ")";
     }
 
     public ContactType() {

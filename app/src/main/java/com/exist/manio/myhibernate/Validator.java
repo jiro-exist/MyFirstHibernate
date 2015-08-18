@@ -9,7 +9,6 @@ import com.exist.manio.myfirsthibernate.core.model.Constants;
 
 public class Validator {
 
-
     public static boolean isName(String str) {
         if ("".equals(str)) {
             return false;
@@ -41,6 +40,27 @@ public class Validator {
         }
         else {
           return str.matches("\\d*");  //match an int
+        }
+    }
+
+    public static boolean isInt(String str, int min, int max) {
+        if ("".equals(str)) {
+            return false;
+        }
+        else {
+            if(str.matches("\\d*")) {
+                if(Integer.parseInt(str) < min) {
+                    return false;
+                }
+                if(Integer.parseInt(str) > max) {
+                    return false;
+                }
+
+                return true;
+            }
+            else {
+                return false;
+            }
         }
     }
 

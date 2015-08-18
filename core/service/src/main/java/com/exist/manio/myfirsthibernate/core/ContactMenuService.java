@@ -9,133 +9,88 @@ import java.util.Comparator;
 import java.text.ParseException;
 
 import com.exist.manio.myfirsthibernate.core.model.Person;
+import com.exist.manio.myfirsthibernate.core.model.Contact;
 import com.exist.manio.myfirsthibernate.core.model.Constants;
 import com.exist.manio.myfirsthibernate.core.model.GenderEnum;
 import com.exist.manio.myfirsthibernate.core.dao.PersonDao;
+import com.exist.manio.myfirsthibernate.core.dao.ContactDao;
 
 public class ContactMenuService {
 
-    public void addPerson(String firstName, String middleName, String lastName, 
-                        String birthday, String isEmployed, String gwa, String gender) throws ParseException {
+    public void add(Person person, int id, String contactType, String contactValue) {
 
-        PersonDao personDao = new PersonDao();
+        ContactDao contactDao = new ContactDao();
 
-        Boolean employed = null;
-        switch (isEmployed) {
+        Contact contact = new Contact(id, contactType, contactValue);
 
-            case "yes"  :
-            case "y"    :
-                            employed = true;
-            case "n"    :
-            case "no"   :
-                            employed = false;
-
-        }
-
-        Person person = new Person(firstName, middleName, lastName,
-                                    Constants.DATEFORMAT.parse(birthday),
-                                    employed, 
-                                    Double.valueOf(gwa), 
-                                    GenderEnum.getByCode(gender).getDescription());
-
-        personDao.add(person);
+        contactDao.add(contact);
+        person.getContactList().add(contact);
     }
 
-    public void editPerson(Person person, String firstName, String middleName, String lastName, 
-                        String birthday, String isEmployed, String gwa, String gender) throws ParseException {
+    public void edit(Person person, Contact contact, String contactValue) {
 
-        PersonDao personDao = new PersonDao();
+        ContactDao contactDao = new ContactDao();
 
-        Boolean employed = null;
-        switch (isEmployed) {
-
-            case "yes"  :
-            case "y"    :
-                            employed = true;
-            case "n"    :
-            case "no"   :
-                            employed = false;
-
+        if(!"".equals(contactValue)) {
+            contact.setContactValue(contactValue);
         }
 
-
-        if(!"".equals(firstName)) {
-            person.setFirstName(firstName);
-        }
-
-        if(!"".equals(middleName)) {
-            person.setMiddleName(middleName);
-        }
-
-        if(!"".equals(lastName)) {
-            person.setLastName(lastName);
-        }
-
-        if(!"".equals(birthday)) {
-            person.setBirthday(Constants.DATEFORMAT.parse(birthday));
-        }
-
-        if(employed != null) {
-            person.setIsEmployed(employed);
-        }
-
-        if(!"".equals(gwa)) {
-            person.setGwa(Double.valueOf(gwa));
-        }
-
-        if(!"".equals(gender)) {
-            person.setGender(gender);
-        }
-
-        personDao.update(person);
+        contactDao.update(contact);
+        person.getContactList().remove(contact);
+        person.getContactList().add(contact);
     }
 
-    public List<Person> getPersons() {
-        PersonDao personDao = new PersonDao();
-        List<Person> personList = personDao.queryPerson();
+    public boolean delete(Person person, Contact contact) {
+        ContactDao contactDao = new ContactDao();
+        if(contactDao.delete(contact)) {
+            person.getContactList().remove(contact);
+            return true;
+        }
+        return false;
+    }
+
+    // public List<Contact> getContacts() {
+    //     ContactDao contactDao = new ContactDao();
+    //     List<Contact> contactList = contactDao.queryContact();
+    //     return contactList;
+    // }
+
+    // public List<Contact> getContacts(Comparator comparator, String sortOrder) {
+    //     ContactDao contactDao = new ContactDao();
+    //     List<Contact> contactList = contactDao.queryContact();
+
+    //     if("asc".equals(sortOrder)) {
+    //         Collections.sort(contactList,comparator);
+    //     }
+    //     else {
+    //         Collections.sort(contactList,Collections.reverseOrder(comparator));
+    //     }
+
+    //     return contactList;
+    // }
+
+    // public List<Contact> getContacts(String columnName, String sortOrder) {
+    //     ContactDao personDao = new ContactDao();
+    //     List<Contact> personList = personDao.queryContact(columnName, sortOrder);
+    //     return personList;
+    // }
+
+    // public List<Contact> searchContactList(String columnName, Date date) {
+    //     ContactDao personDao = new ContactDao();
+    //     List<Contact> personList = personDao.searchContact(columnName, date);
+    //     return personList;
+    // }
+
+    // public List<Contact> searchContactList(String columnName, String searchString) {
+    //     ContactDao personDao = new ContactDao();
+    //     List<Contact> personList = personDao.searchContact(columnName, searchString);
+    //     return personList;
+    // }
+
+    public List<Contact> searchContactList(String columnName, int id) {
+        ContactDao personDao = new ContactDao();
+        List<Contact> personList = personDao.searchContact(columnName, id);
         return personList;
     }
 
-    public List<Person> getPersons(Comparator comparator, String sortOrder) {
-        PersonDao personDao = new PersonDao();
-        List<Person> personList = personDao.queryPerson();
-
-        if("asc".equals(sortOrder)) {
-            Collections.sort(personList,comparator);
-        }
-        else {
-            Collections.sort(personList,Collections.reverseOrder(comparator));
-        }
-
-        return personList;
-    }
-
-    public List<Person> getPersons(String columnName, String sortOrder) {
-        PersonDao personDao = new PersonDao();
-        List<Person> personList = personDao.queryPerson(columnName, sortOrder);
-        return personList;
-    }
-
-    public List<Person> searchPersonList(String columnName, Date date) {
-        PersonDao personDao = new PersonDao();
-        List<Person> personList = personDao.searchPerson(columnName, date);
-        return personList;
-    }
-
-    public List<Person> searchPersonList(String columnName, String searchString) {
-        PersonDao personDao = new PersonDao();
-        List<Person> personList = personDao.searchPerson(columnName, searchString);
-        return personList;
-    }
-
-    public List<Person> searchPersonList(String columnName, int id) {
-        PersonDao personDao = new PersonDao();
-        List<Person> personList = personDao.searchPerson(columnName, id);
-        return personList;
-    }
-
-    public boolean delete(int id) {
-        PersonDao personDao = new PersonDao();
-        return personDao.delete(id);
-    }
 }
