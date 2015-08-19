@@ -96,9 +96,18 @@ public class DisplayPersonMenu {
                 sr.append(p.toString());
                 sr.append("\n");
 
+                //print address
+                if(p.getAddress() != null) {
+                    sr.append(p.getAddress().toString());
+                    sr.append("\n");
+                }
+
+                //print contacts
                 Set sets = p.getContactList();
 
-                sr.append("Contacts:\n");
+                if(sets.size() > 0) {
+                    sr.append("Contacts:\n");
+                }
 
                 for ( Iterator iter = sets.iterator(); iter.hasNext(); ) { 
                     Contact contact = (Contact) iter.next();

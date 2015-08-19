@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.text.ParseException;
 
 import com.exist.manio.myfirsthibernate.core.model.Person;
+import com.exist.manio.myfirsthibernate.core.model.Address;
 import com.exist.manio.myfirsthibernate.core.model.Constants;
 import com.exist.manio.myfirsthibernate.core.model.GenderEnum;
 import com.exist.manio.myfirsthibernate.core.dao.PersonDao;
@@ -16,7 +17,9 @@ import com.exist.manio.myfirsthibernate.core.dao.PersonDao;
 public class PersonMenuService {
 
     public void addPerson(String firstName, String middleName, String lastName, 
-                        String birthday, String isEmployed, String gwa, String gender) throws ParseException {
+                        String birthday, String isEmployed, String gwa, String gender, 
+                        String houseNumber, String street, String subdivision, String barangay, 
+                        String city, String zipCode) throws ParseException {
 
         PersonDao personDao = new PersonDao();
 
@@ -38,11 +41,18 @@ public class PersonMenuService {
                                     Double.valueOf(gwa), 
                                     GenderEnum.getByCode(gender).getDescription());
 
+        Address address = new Address(houseNumber, street, barangay, subdivision, city, zipCode);
+
+        address.setPerson(person);
+        person.setAddress(address);
+
         personDao.add(person);
     }
 
     public void editPerson(Person person, String firstName, String middleName, String lastName, 
-                        String birthday, String isEmployed, String gwa, String gender) throws ParseException {
+                        String birthday, String isEmployed, String gwa, String gender,
+                        String houseNumber, String street, String subdivision, String barangay, 
+                        String city, String zipCode) throws ParseException {
 
         PersonDao personDao = new PersonDao();
 
@@ -84,7 +94,31 @@ public class PersonMenuService {
         }
 
         if(!"".equals(gender)) {
-            person.setGender(gender);
+            person.setGender(GenderEnum.getByCode(gender).getDescription());
+        }
+
+        if(!"".equals(houseNumber)) {
+            person.getAddress().setHouseNumber(houseNumber);
+        }
+
+        if(!"".equals(street)) {
+            person.getAddress().setStreet(street);
+        }
+
+        if(!"".equals(subdivision)) {
+            person.getAddress().setSubdivision(subdivision);
+        }
+
+        if(!"".equals(barangay)) {
+            person.getAddress().setBarangay(barangay);
+        }
+
+        if(!"".equals(city)) {
+            person.getAddress().setCity(city);
+        }
+
+        if(!"".equals(zipCode)) {
+            person.getAddress().setZipCode(zipCode);
         }
 
         personDao.update(person);

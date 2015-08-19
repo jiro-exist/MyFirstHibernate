@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.lang.StringBuilder;
 
 import com.exist.manio.myfirsthibernate.core.model.Person;
+import com.exist.manio.myfirsthibernate.core.model.Address;
 import com.exist.manio.myfirsthibernate.core.service.PersonMenuService;
 
 public class EditPersonMenu {
@@ -14,7 +15,9 @@ public class EditPersonMenu {
 	public void edit() {
 
     	PersonMenuService personMenuService = new PersonMenuService();
-		String firstName = "", middleName = "", lastName = "", birthday = "", getInput = "", gwa = "", isEmployed = "", gender = "", id = "";
+		String firstName = "", middleName = "", lastName = "", birthday = "", getInput = "", gwa = "", isEmployed = "", gender = "", id = "",
+		houseNumber = "", street = "", barangay = "", city = "", zipCode = "", subdivision = "";
+
 		Person person = new Person();
 
 		System.out.println("Enter the ID of the person:");
@@ -26,6 +29,7 @@ public class EditPersonMenu {
 		if(personList.size() > 0) {
 			person = personList.get(0);
             System.out.println(person.toString());
+            System.out.println(person.getAddress().toString());
 
 			System.out.println("First Name:");
 			do {
@@ -62,8 +66,26 @@ public class EditPersonMenu {
 				isEmployed = ScannerUtil.getInput();
 			} while(!Validator.isBoolean(isEmployed) && !"".equals(isEmployed));
 
+			System.out.println("House Number:");
+			houseNumber = ScannerUtil.getInput();
+
+			System.out.println("Street:");
+			street = ScannerUtil.getInput();
+
+			System.out.println("Subdivision:");
+			subdivision = ScannerUtil.getInput();
+
+			System.out.println("Barangay:");
+			barangay = ScannerUtil.getInput();
+
+			System.out.println("City:");
+			city = ScannerUtil.getInput();
+
+			System.out.println("Zip Code:");
+			zipCode = ScannerUtil.getInput();
+
 	        try {
-	    		personMenuService.editPerson(person, firstName, middleName, lastName, birthday, isEmployed, gwa, gender);
+	    		personMenuService.editPerson(person, firstName, middleName, lastName, birthday, isEmployed, gwa, gender, houseNumber, street, subdivision, barangay, city, zipCode);
 	        }
 	        catch (ParseException e) {
 				System.out.println("parse false");

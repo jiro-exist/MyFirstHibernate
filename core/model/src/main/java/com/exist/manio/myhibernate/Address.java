@@ -80,8 +80,8 @@ public class Address {
     public String toString() {
         return  "HouseNumber:" + houseNumber + "\n"
               + "Street:" + street + "\n"
-              + "Barangay:" + barangay + "\n"
               + "Subdivision:" + subdivision + "\n"
+              + "Barangay:" + barangay + "\n"
               + "City:" + city + "\n"
               + "Zip Code:" + zipCode + "\n";
     }

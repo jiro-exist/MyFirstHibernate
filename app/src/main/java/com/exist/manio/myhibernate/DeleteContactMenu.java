@@ -42,10 +42,6 @@ public class DeleteContactMenu {
 	                System.out.println(contact.toString() + "\n");
 	            }
 
-				// for(Contact contact : contactList) {
-	   //              System.out.println(contact.toString() + "\n");
-	   //          }
-
 				System.out.println("Enter the contact ID:");
 				contactId = ScannerUtil.getInt();
 
@@ -56,23 +52,14 @@ public class DeleteContactMenu {
 					}
 	            }
 				
-				// for(Contact contact : contactList) {
-				// 	if(contact.getContactId() == contactId) {
-				// 		return contactMenuService.delete(person, contact);
-				// 	}
-				// }
-				
-				System.out.println("1");
 				return false;
 			}
 			else {
-				System.out.println("2");
 				return false;
 			}
 
 		}
 		else {
-			System.out.println("3");
 			return false;
 		}
 
