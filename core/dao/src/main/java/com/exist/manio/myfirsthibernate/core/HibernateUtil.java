@@ -15,8 +15,8 @@ public class HibernateUtil {
                 return sessionFactory;
             }
         }
-        catch (ExceptionInInitializerError e) {
-            System.out.println("Session factory initialization failed!");
+        catch (Throwable e) {
+            System.out.println("Session factory initialization failed!" + e);
             e.printStackTrace();
             throw new ExceptionInInitializerError(e);
         }

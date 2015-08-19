@@ -21,7 +21,7 @@ public class ContactMenuService {
 
         ContactDao contactDao = new ContactDao();
 
-        Contact contact = new Contact(id, contactType, contactValue);
+        Contact contact = new Contact(person, id, contactType, contactValue);
 
         contactDao.add(contact);
         person.getContactList().add(contact);
@@ -36,8 +36,8 @@ public class ContactMenuService {
         }
 
         contactDao.update(contact);
-        person.getContactList().remove(contact);
-        person.getContactList().add(contact);
+        // person.getContactList().remove(contact);
+        // person.getContactList().add(contact);
     }
 
     public boolean delete(Person person, Contact contact) {
@@ -49,48 +49,10 @@ public class ContactMenuService {
         return false;
     }
 
-    // public List<Contact> getContacts() {
-    //     ContactDao contactDao = new ContactDao();
-    //     List<Contact> contactList = contactDao.queryContact();
-    //     return contactList;
-    // }
-
-    // public List<Contact> getContacts(Comparator comparator, String sortOrder) {
-    //     ContactDao contactDao = new ContactDao();
-    //     List<Contact> contactList = contactDao.queryContact();
-
-    //     if("asc".equals(sortOrder)) {
-    //         Collections.sort(contactList,comparator);
-    //     }
-    //     else {
-    //         Collections.sort(contactList,Collections.reverseOrder(comparator));
-    //     }
-
-    //     return contactList;
-    // }
-
-    // public List<Contact> getContacts(String columnName, String sortOrder) {
-    //     ContactDao personDao = new ContactDao();
-    //     List<Contact> personList = personDao.queryContact(columnName, sortOrder);
-    //     return personList;
-    // }
-
-    // public List<Contact> searchContactList(String columnName, Date date) {
-    //     ContactDao personDao = new ContactDao();
-    //     List<Contact> personList = personDao.searchContact(columnName, date);
-    //     return personList;
-    // }
-
-    // public List<Contact> searchContactList(String columnName, String searchString) {
-    //     ContactDao personDao = new ContactDao();
-    //     List<Contact> personList = personDao.searchContact(columnName, searchString);
-    //     return personList;
-    // }
-
     public List<Contact> searchContactList(String columnName, int id) {
-        ContactDao personDao = new ContactDao();
-        List<Contact> personList = personDao.searchContact(columnName, id);
-        return personList;
+        ContactDao contactDao = new ContactDao();
+        List<Contact> contactList = contactDao.searchContact(columnName, id);
+        return contactList;
     }
 
 }

@@ -3,6 +3,8 @@ package com.exist.manio.myfirsthibernate.app;
 import java.util.Date;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Set;
+import java.util.Iterator;
 import java.util.ArrayList;
 import java.lang.StringBuilder;
 
@@ -31,29 +33,34 @@ public class EditContactMenu {
         
 		if(personList.size() > 0) {
 			person = personList.get(0);
-			List<Contact> contactList = contactMenuService.searchContactList("id",personId);
 
-			for(Contact contact : contactList) {
-				System.out.println(contact.toString());
-			}
+            Set contactList = person.getContactList();
 
-			System.out.println("Enter the contact ID:");
-			contactId = ScannerUtil.getInt();
-			
-			List<Contact> editContactList = contactMenuService.searchContactList("contactId",contactId);
+			if(contactList.size()>0) {
+	            System.out.println("Contacts:\n");
 
-			if(editContactList.size() > 0) {
-				Contact contact = editContactList.get(0);
+	            for ( Iterator iter = contactList.iterator(); iter.hasNext(); ) { 
+	                Contact contact = (Contact) iter.next();
+	                System.out.println(contact.toString() + "\n");
+	            }
 
-				System.out.println("Enter the new contact value:");
-				contactValue = ScannerUtil.getInput();
+				System.out.println("Enter the contact ID:");
+				contactId = ScannerUtil.getInt();
+				
+				List<Contact> editContactList = contactMenuService.searchContactList("contactId",contactId);
 
-				contactMenuService.edit(person, contact, contactValue);
-			}
-			else {
-				System.out.println("Contact id not found");
-			}
+				if(editContactList.size() > 0) {
+					Contact contact = editContactList.get(0);
 
+					System.out.println("Enter the new contact value:");
+					contactValue = ScannerUtil.getInput();
+
+					contactMenuService.edit(person, contact, contactValue);
+				}
+				else {
+					System.out.println("Contact id not found");
+				}
+	        }
 		}
 		else {
 			System.out.println("Person not found");

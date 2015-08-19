@@ -3,6 +3,8 @@ package com.exist.manio.myfirsthibernate.app;
 import java.util.Date;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Set;
+import java.util.Iterator;
 import java.util.ArrayList;
 import java.lang.StringBuilder;
 
@@ -29,29 +31,48 @@ public class DeleteContactMenu {
         
 		if(personList.size() > 0) {
 			person = personList.get(0);
-			List<Contact> contactList = contactMenuService.searchContactList("id",personId);
+
+            Set contactList = person.getContactList();
 
 			if(contactList.size()>0) {
-				for(Contact contact : contactList) {
-					System.out.println(contact.toString());
-				}
+	            System.out.println("Contacts:\n");
+
+	            for ( Iterator iter = contactList.iterator(); iter.hasNext(); ) { 
+	                Contact contact = (Contact) iter.next();
+	                System.out.println(contact.toString() + "\n");
+	            }
+
+				// for(Contact contact : contactList) {
+	   //              System.out.println(contact.toString() + "\n");
+	   //          }
 
 				System.out.println("Enter the contact ID:");
 				contactId = ScannerUtil.getInt();
 
-				for(Contact contact : contactList) {
+	            for ( Iterator iter = contactList.iterator(); iter.hasNext(); ) { 
+	                Contact contact = (Contact) iter.next();
 					if(contact.getContactId() == contactId) {
 						return contactMenuService.delete(person, contact);
 					}
-				}
+	            }
+				
+				// for(Contact contact : contactList) {
+				// 	if(contact.getContactId() == contactId) {
+				// 		return contactMenuService.delete(person, contact);
+				// 	}
+				// }
+				
+				System.out.println("1");
 				return false;
 			}
 			else {
+				System.out.println("2");
 				return false;
 			}
 
 		}
 		else {
+			System.out.println("3");
 			return false;
 		}
 

@@ -6,6 +6,7 @@ public class Contact {
     private int contactId;
     private String contactCode;
     private String contactValue;
+    private Person person;
 
     public void setId(int id) {
         this.id = id;
@@ -45,6 +46,16 @@ public class Contact {
             +   "Contact Value:" + contactValue + "\n";
     }
 
+    public void setPerson(Person person) {
+        if(person != null) {
+            this.person = person;
+        }
+    }
+
+    public Person getPerson() {
+        return this.person;
+    }
+
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -69,7 +80,8 @@ public class Contact {
 
     }
 
-    public Contact(int id, String contactCode, String contactValue) {
+    public Contact(Person person, int id, String contactCode, String contactValue) {
+        this.person = person;
         this.id = id;
         this.contactCode = contactCode;
         this.contactValue = contactValue;

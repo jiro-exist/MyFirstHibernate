@@ -3,12 +3,15 @@ package com.exist.manio.myfirsthibernate.app;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
+import java.util.Iterator;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
 import com.exist.manio.myfirsthibernate.core.service.PersonMenuService;
 import com.exist.manio.myfirsthibernate.core.model.PersonGwaComparator;
 import com.exist.manio.myfirsthibernate.core.model.Person;
+import com.exist.manio.myfirsthibernate.core.model.Contact;
 
 public class DisplayPersonMenu {
 
@@ -92,6 +95,15 @@ public class DisplayPersonMenu {
                 sr.append("\n");
                 sr.append(p.toString());
                 sr.append("\n");
+
+                Set sets = p.getContactList();
+
+                sr.append("Contacts:\n");
+
+                for ( Iterator iter = sets.iterator(); iter.hasNext(); ) { 
+                    Contact contact = (Contact) iter.next();
+                    sr.append(contact.toString() + "\n");
+                }
             }
         }
         else {

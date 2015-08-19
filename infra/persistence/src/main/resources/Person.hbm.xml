@@ -18,5 +18,14 @@
       <property name="isEmployed" column="is_employed" type="boolean"/>
       <property name="gender" column="gender" type="string"/>
       <property name="gwa" column="gwa" type="double"/>
+
+      <set name="contactList" table="contact"
+         inverse="true" lazy="false" fetch="select" cascade="all-delete-orphan">
+         <key>
+            <column name="id" not-null="true" />
+         </key>
+         <one-to-many class="com.exist.manio.myfirsthibernate.core.model.Contact" />
+      </set>
+
    </class>
 </hibernate-mapping>

@@ -41,19 +41,22 @@ public class ContactDao {
     }
 
     public boolean delete(Contact contact) {
-        boolean result = false;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        Object persistentInstance = session.load(Contact.class, contact.getId());
+        try {
+            Transaction t = session.beginTransaction();
 
-        if (persistentInstance != null) {
-            session.delete(persistentInstance);
+            session.delete(contact);
             t.commit();
-            result = true;
-        }
 
-        session.close();
-        return result;
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        finally {
+            session.close();
+        }
     }
 
     public List<Contact> queryContact() {

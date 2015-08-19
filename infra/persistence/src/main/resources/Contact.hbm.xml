@@ -11,9 +11,12 @@
       <id name="contactId" type="int" column="contact_id">
          <generator class="identity"/>
       </id>
-      <property name="id" column="id" type="int"/>
       <property name="contactCode" column="contact_code" type="string"/>
       <property name="contactValue" column="contact_value" type="string"/>
       
+      <many-to-one name="person" class="com.exist.manio.myfirsthibernate.core.model.Person" fetch="select">
+         <column name="id" not-null="true" />
+      </many-to-one>
+
    </class>
 </hibernate-mapping>

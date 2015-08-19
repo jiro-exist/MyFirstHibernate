@@ -100,11 +100,8 @@ public class Person {
                  + "Birthday:" + birthday + "\n"
                  + "Gender:" + gender + "\n"
                  + "Employed:" + isEmployed + "\n"
-                 + "GWA:" + gwa + "\n"
-                 + "Contacts:" + "\n";
-        for(Contact contact : contactList) {
-            personData += contact.toString();
-        }
+                 + "GWA:" + gwa + "\n";
+                 
         return personData;
     }
 
