@@ -79,17 +79,13 @@ public class Validator {
         	Constants.DATEFORMAT.parse(date);
         }
         catch (Exception e) {
-			System.out.println("parse false");
         	return false;
         }
 
 		DateValidator validator = DateValidator.getInstance();
 		if (validator.validate(date,Constants.DATEFORMAT.toPattern()) != null) {
-		// if (validator.isValid(date)) {
-			System.out.println("true");
 		    return true;
 		} else {
-			System.out.println("false");
 		    return false;
 		}
 	}
