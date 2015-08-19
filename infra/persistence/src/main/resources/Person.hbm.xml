@@ -19,6 +19,10 @@
       <property name="gender" column="gender" type="string"/>
       <property name="gwa" column="gwa" type="double"/>
 
+      <one-to-one name="address" class="com.exist.manio.myfirsthibernate.core.model.Address"
+         cascade="all">
+      </one-to-one>
+
       <set name="contactList" table="contact"
          inverse="true" lazy="false" fetch="select" cascade="all-delete-orphan">
          <key>
@@ -26,6 +30,7 @@
          </key>
          <one-to-many class="com.exist.manio.myfirsthibernate.core.model.Contact" />
       </set>
+
 
    </class>
 </hibernate-mapping>

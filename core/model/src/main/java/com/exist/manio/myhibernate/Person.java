@@ -14,6 +14,7 @@ public class Person {
     private Boolean isEmployed;
     private Double gwa;
     private String gender;
+    private Address address;
     private Set<Contact> contactList;
 
     public void setId(int id) {
@@ -90,6 +91,16 @@ public class Person {
         return this.contactList;
     }
 
+    public void setAddress(Address address) {
+        if(address != null) {
+            this.address = address;
+        }
+    }
+
+    public Address getAddress() {
+        return this.address;
+    }
+
     public Person() {
 
     }
@@ -115,7 +126,6 @@ public class Person {
         this.isEmployed = isEmployed;
         this.gwa = gwa;
         this.gender = gender;
-
     }
 
 }

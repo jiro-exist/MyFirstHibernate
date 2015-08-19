@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+<!DOCTYPE hibernate-mapping PUBLIC  
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+
+<hibernate-mapping>
+
+	<class name="com.exist.manio.myfirsthibernate.core.model.Address" table="address">
+
+		<id name="id" type="int">
+			<column name="id" />
+			<generator class="foreign">
+				<param name="property">person</param>
+			</generator>
+		</id>
+
+		<property name="houseNumber" column="house_number" type="string"/>
+		<property name="street" column="street" type="string"/>
+		<property name="barangay" column="barangay" type="string"/>
+		<property name="subdivision" column="subdivision" type="string"/>
+		<property name="city" column="city" type="string"/>
+		<property name="zipCode" column="zip_code" type="string"/>
+
+		<one-to-one name="person" class="com.exist.manio.myfirsthibernate.core.model.Person" constrained="true">
+		</one-to-one>
+
+	</class>
+
+</hibernate-mapping>

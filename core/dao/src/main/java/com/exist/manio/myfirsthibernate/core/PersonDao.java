@@ -15,6 +15,7 @@ import org.hibernate.criterion.Order;
 
 import com.exist.manio.myfirsthibernate.core.dao.HibernateUtil;
 import com.exist.manio.myfirsthibernate.core.model.Person;
+import com.exist.manio.myfirsthibernate.core.model.Address;
 
 public class PersonDao {
 

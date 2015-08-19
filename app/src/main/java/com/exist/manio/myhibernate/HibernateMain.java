@@ -35,6 +35,7 @@ public class HibernateMain {
         }
         catch (Exception e) {
             System.out.println("main error:" + e);
+            e.printStackTrace();
         }
         finally {
             HibernateUtil.closeSessionFactory();
