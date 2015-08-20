@@ -32,6 +32,9 @@ public class MainMenuController {
 			case "7"	:	deleteContact();
 							break;
 
+			case "8"	:	addRole();
+							break;
+
 			case "0"	:	System.out.println("System Exiting.");
 							break;
 
@@ -83,6 +86,10 @@ public class MainMenuController {
 		else {
 			System.out.println("Contact was not found");
 		}
+	}
+
+	private void addRole() {
+		
 	}
 
 }

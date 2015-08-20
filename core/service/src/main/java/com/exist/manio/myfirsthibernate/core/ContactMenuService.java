@@ -17,14 +17,20 @@ import com.exist.manio.myfirsthibernate.core.dao.ContactDao;
 
 public class ContactMenuService {
 
-    public void add(Person person, int id, String contactType, String contactValue) {
+    public boolean add(Person person, int id, String contactType, String contactValue) {
 
         ContactDao contactDao = new ContactDao();
 
         Contact contact = new Contact(person, id, contactType, contactValue);
+        System.out.println(person.getContactList().toArray()[0].toString());
 
-        contactDao.add(contact);
-        person.getContactList().add(contact);
+        if(person.getContactList().add(contact)) {
+            contactDao.add(contact);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public void edit(Person person, Contact contact, String contactValue) {
@@ -36,8 +42,6 @@ public class ContactMenuService {
         }
 
         contactDao.update(contact);
-        // person.getContactList().remove(contact);
-        // person.getContactList().add(contact);
     }
 
     public boolean delete(Person person, Contact contact) {
@@ -52,6 +56,12 @@ public class ContactMenuService {
     public List<Contact> searchContactList(String columnName, int id) {
         ContactDao contactDao = new ContactDao();
         List<Contact> contactList = contactDao.searchContact(columnName, id);
+        return contactList;
+    }
+
+    public List<Contact> searchContactList(String columnName, String searchStr) {
+        ContactDao contactDao = new ContactDao();
+        List<Contact> contactList = contactDao.searchContact(columnName, searchStr);
         return contactList;
     }
 

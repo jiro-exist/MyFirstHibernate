@@ -42,6 +42,7 @@ public class Contact {
 
     public String toString() {
         return  "Contact ID:" + contactId + "\n"
+            +   "ID:" + id + "\n"
             +   "Contact Code:" + contactCode + "\n"
             +   "Contact Value:" + contactValue + "\n";
     }
@@ -56,23 +57,28 @@ public class Contact {
         return this.person;
     }
 
+    @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (!this.getClass().equals(obj.getClass())) {
-            return false;
-        }
+        
+        if (this == obj) return true;
+
+        if (!(obj instanceof Contact)) return false;
+
         Contact obj2 = (Contact)obj;
-        if((this.id == obj2.getId()) && (this.contactCode.equals(obj2.getContactCode())) && (this.contactValue.equals(obj2.getContactValue())) ) {
-            return true;
-        }
-        return false;
+
+        if (this.id != obj2.getId()) return false;
+
+        if (!this.contactCode.equals(obj2.getContactCode())) return false;
+
+        if (!this.contactValue.equals(obj2.getContactValue())) return false;
+
+        return true;
     }
 
+    @Override
     public int hashCode() {
         int tmp = 0;
-        tmp = ( "" + id + contactId ).hashCode();
+        tmp = ( "" + id + contactCode + contactValue ).hashCode();
         return tmp;
     }
 

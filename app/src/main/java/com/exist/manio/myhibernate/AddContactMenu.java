@@ -48,7 +48,12 @@ public class AddContactMenu {
 				System.out.println("Enter the contact value:");
 				contactValue = ScannerUtil.getInput();
 
-				contactMenuService.add(person, Integer.parseInt(id), contactTypeList.get(Integer.parseInt(contactTypeId)-1).getContactCode(), contactValue);
+				if(contactMenuService.add(person, Integer.parseInt(id), contactTypeList.get(Integer.parseInt(contactTypeId)-1).getContactCode(), contactValue)) {
+					System.out.println("Contact successfully added");
+				}
+				else {
+					System.out.println("Duplicate Contact Details");
+				}
 			}
 			else {
 				System.out.println("Contact Types not available");

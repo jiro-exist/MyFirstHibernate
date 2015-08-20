@@ -2,6 +2,7 @@ package com.exist.manio.myfirsthibernate.core.model;
 
 import java.util.Date;
 import java.util.Set;
+import java.util.HashSet;
 import java.util.ArrayList;
 
 public class Person {
@@ -15,7 +16,7 @@ public class Person {
     private Double gwa;
     private String gender;
     private Address address;
-    private Set<Contact> contactList;
+    private Set<Contact> contactList = new HashSet<Contact>(0);
 
     public void setId(int id) {
         this.id = id;
