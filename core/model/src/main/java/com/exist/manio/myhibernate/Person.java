@@ -17,6 +17,7 @@ public class Person {
     private String gender;
     private Address address;
     private Set<Contact> contactList = new HashSet<Contact>(0);
+    private Set<Roles> rolesList = new HashSet<Roles>(0);;
 
     public void setId(int id) {
         this.id = id;
@@ -100,6 +101,16 @@ public class Person {
 
     public Address getAddress() {
         return this.address;
+    }
+
+    public void setRolesList (Set<Roles> rolesList) {
+        if(rolesList != null) {
+            this.rolesList = rolesList;
+        }
+    }
+
+    public Set<Roles> getRolesList() {
+        return this.rolesList;
     }
 
     public Person() {

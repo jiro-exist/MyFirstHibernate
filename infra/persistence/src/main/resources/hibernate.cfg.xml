@@ -22,6 +22,7 @@
         <mapping resource="Address.hbm.xml"/>
         <mapping resource="Contact.hbm.xml"/>
         <mapping resource="ContactType.hbm.xml"/>
+        <mapping resource="Roles.hbm.xml"/>
 
 </session-factory>
 </hibernate-configuration>

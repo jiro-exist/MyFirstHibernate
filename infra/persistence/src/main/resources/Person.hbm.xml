@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>  
 <!DOCTYPE hibernate-mapping PUBLIC  
- "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
- "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
-  
- <hibernate-mapping>
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+
+<hibernate-mapping>
    <class name="com.exist.manio.myfirsthibernate.core.model.Person" table="person">
       <meta attribute="class-description">
          This class contains the Person details.
@@ -19,10 +19,6 @@
       <property name="gender" column="gender" type="string"/>
       <property name="gwa" column="gwa" type="double"/>
 
-      <one-to-one name="address" class="com.exist.manio.myfirsthibernate.core.model.Address"
-         cascade="all">
-      </one-to-one>
-
       <set name="contactList" table="contact"
          inverse="true" lazy="false" fetch="select" cascade="all">
          <key>
@@ -31,6 +27,27 @@
          <one-to-many class="com.exist.manio.myfirsthibernate.core.model.Contact" />
       </set>
 
+      <one-to-one name="address" class="com.exist.manio.myfirsthibernate.core.model.Address"
+         cascade="all">
+      </one-to-one>
+
+      <set name="contactList" table="contact"
+         inverse="true" lazy="false" fetch="select" cascade="all-delete-orphan">
+         <key>
+            <column name="id" not-null="true" />
+         </key>
+         <one-to-many class="com.exist.manio.myfirsthibernate.core.model.Contact" />
+
+      </set>
+
+      <set name="rolesList" table="person_roles"  inverse="false" lazy="false" fetch="select" cascade="all">
+         <key>
+            <column name="person_id" not-null="true" />
+         </key>
+         <many-to-many entity-name="com.exist.manio.myfirsthibernate.core.model.Roles">
+            <column name="role" not-null="true" />
+         </many-to-many>
+      </set>
 
    </class>
 </hibernate-mapping>

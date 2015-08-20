@@ -12,6 +12,7 @@ import com.exist.manio.myfirsthibernate.core.service.PersonMenuService;
 import com.exist.manio.myfirsthibernate.core.model.PersonGwaComparator;
 import com.exist.manio.myfirsthibernate.core.model.Person;
 import com.exist.manio.myfirsthibernate.core.model.Contact;
+import com.exist.manio.myfirsthibernate.core.model.Roles;
 
 public class DisplayPersonMenu {
 
@@ -103,15 +104,27 @@ public class DisplayPersonMenu {
                 }
 
                 //print contacts
-                Set sets = p.getContactList();
+                Set contactSet = p.getContactList();
 
-                if(sets.size() > 0) {
+                if(contactSet.size() > 0) {
                     sr.append("Contacts:\n");
                 }
 
-                for ( Iterator iter = sets.iterator(); iter.hasNext(); ) { 
+                for ( Iterator iter = contactSet.iterator(); iter.hasNext(); ) { 
                     Contact contact = (Contact) iter.next();
                     sr.append(contact.toString() + "\n");
+                }
+
+                //print roles
+                Set rolesSet = p.getRolesList();
+
+                if(rolesSet.size() > 0) {
+                    sr.append("Contacts:\n");
+                }
+
+                for ( Iterator iter = rolesSet.iterator(); iter.hasNext(); ) { 
+                    Roles roles = (Roles) iter.next();
+                    sr.append(roles.toString() + "\n");
                 }
             }
         }
