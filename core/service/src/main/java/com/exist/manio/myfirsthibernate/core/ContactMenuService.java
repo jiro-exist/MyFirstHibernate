@@ -22,9 +22,8 @@ public class ContactMenuService {
         ContactDao contactDao = new ContactDao();
 
         Contact contact = new Contact(person, id, contactType, contactValue);
-        System.out.println(person.getContactList().toArray()[0].toString());
 
-        if(person.getContactList().add(contact)) {
+        if(person.getContactSet().add(contact)) {
             contactDao.add(contact);
             return true;
         }
@@ -47,7 +46,7 @@ public class ContactMenuService {
     public boolean delete(Person person, Contact contact) {
         ContactDao contactDao = new ContactDao();
         if(contactDao.delete(contact)) {
-            person.getContactList().remove(contact);
+            person.getContactSet().remove(contact);
             return true;
         }
         return false;

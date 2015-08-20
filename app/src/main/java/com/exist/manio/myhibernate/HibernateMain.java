@@ -52,10 +52,8 @@ public class HibernateMain {
         System.out.println("5:Add a person's contact");
         System.out.println("6:Edit a person's contact");
         System.out.println("7:Delete a person's contact");
-        System.out.println("8:Add a role");
-        System.out.println("9:Add a role to a person");
-        System.out.println("10:Delete a role");
-        System.out.println("11:Delete a person's role");
+        System.out.println("8:Add a role to a person");
+        System.out.println("9:Delete a person's role");
         System.out.println("0:Exit");
         System.out.println();
     }

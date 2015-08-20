@@ -32,12 +32,12 @@ public class DeleteContactMenu {
 		if(personList.size() > 0) {
 			person = personList.get(0);
 
-            Set contactList = person.getContactList();
+            Set contactSet = person.getContactSet();
 
-			if(contactList.size()>0) {
+			if(contactSet.size()>0) {
 	            System.out.println("Contacts:\n");
 
-	            for ( Iterator iter = contactList.iterator(); iter.hasNext(); ) { 
+	            for ( Iterator iter = contactSet.iterator(); iter.hasNext(); ) { 
 	                Contact contact = (Contact) iter.next();
 	                System.out.println(contact.toString() + "\n");
 	            }
@@ -45,7 +45,7 @@ public class DeleteContactMenu {
 				System.out.println("Enter the contact ID:");
 				contactId = ScannerUtil.getInt();
 
-	            for ( Iterator iter = contactList.iterator(); iter.hasNext(); ) { 
+	            for ( Iterator iter = contactSet.iterator(); iter.hasNext(); ) { 
 	                Contact contact = (Contact) iter.next();
 					if(contact.getContactId() == contactId) {
 						return contactMenuService.delete(person, contact);

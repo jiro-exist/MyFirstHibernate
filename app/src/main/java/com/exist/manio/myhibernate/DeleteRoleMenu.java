@@ -14,9 +14,9 @@ import com.exist.manio.myfirsthibernate.core.model.Roles;
 import com.exist.manio.myfirsthibernate.core.service.PersonMenuService;
 import com.exist.manio.myfirsthibernate.core.service.RolesMenuService;
 
-public class AddRoleMenu {
+public class DeleteRoleMenu {
 
-	public void add() {
+	public void delete() {
 
     	RolesMenuService roleMenuService = new RolesMenuService();
     	PersonMenuService personMenuService = new PersonMenuService();
@@ -30,33 +30,12 @@ public class AddRoleMenu {
         List<Person> personList = personMenuService.searchPersonList("id",personId);
         
 		if(personList.size() > 0) {
-			Person person = personList.get(0);
 
-            //print roles
-            Set rolesSet = person.getRolesSet();
+			System.out.println("Enter the role code:");
+			roleCode = ScannerUtil.getInput();
 
-            if(rolesSet.size() > 0) {
-                System.out.println("Current List of Roles:\n");
-
-	            for ( Iterator iter = rolesSet.iterator(); iter.hasNext(); ) { 
-	                Roles roles = (Roles) iter.next();
-	                System.out.println(roles.toString() + "\n");
-	            }
-            }
-
-			List<Roles> rolesList = roleMenuService.getRolesList();
-			if(rolesList.size() > 0) {
-
-				for(Roles roles : rolesList ) {
-					System.out.println(roles.toString());
-				}
-
-				System.out.println();
-				System.out.println("Enter the role code:");
-				roleCode = ScannerUtil.getInput();
-
-				roleMenuService.add(personId, roleCode);
-			}
+			roleMenuService.delete(personId, roleCode);
+			
 		}
 		else {
 			System.out.println("Person not found");

@@ -104,7 +104,7 @@ public class DisplayPersonMenu {
                 }
 
                 //print contacts
-                Set contactSet = p.getContactList();
+                Set contactSet = p.getContactSet();
 
                 if(contactSet.size() > 0) {
                     sr.append("Contacts:\n");
@@ -116,10 +116,10 @@ public class DisplayPersonMenu {
                 }
 
                 //print roles
-                Set rolesSet = p.getRolesList();
+                Set rolesSet = p.getRolesSet();
 
                 if(rolesSet.size() > 0) {
-                    sr.append("Contacts:\n");
+                    sr.append("Roles:\n");
                 }
 
                 for ( Iterator iter = rolesSet.iterator(); iter.hasNext(); ) { 

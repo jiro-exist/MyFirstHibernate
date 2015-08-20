@@ -1,0 +1,1 @@
+insert into roles values ('admin','Administrator'), ('it','IT'),('support','Support'),('qa','Quality Assurance'),('tech','Technician');

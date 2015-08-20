@@ -3,7 +3,6 @@ package com.exist.manio.myfirsthibernate.core.model;
 import java.util.Date;
 import java.util.Set;
 import java.util.HashSet;
-import java.util.ArrayList;
 
 public class Person {
 
@@ -16,8 +15,8 @@ public class Person {
     private Double gwa;
     private String gender;
     private Address address;
-    private Set<Contact> contactList = new HashSet<Contact>(0);
-    private Set<Roles> rolesList = new HashSet<Roles>(0);;
+    private Set<Contact> contactSet = new HashSet<Contact>(0);
+    private Set<Roles> rolesSet = new HashSet<Roles>(0);;
 
     public void setId(int id) {
         this.id = id;
@@ -83,14 +82,14 @@ public class Person {
         return this.gender;
     }
 
-    public void setContactList(Set<Contact> contactList) {
-        if(contactList != null) {
-            this.contactList = contactList;
+    public void setContactSet(Set<Contact> contactSet) {
+        if(contactSet != null) {
+            this.contactSet = contactSet;
         }
     }
 
-    public Set<Contact> getContactList () {
-        return this.contactList;
+    public Set<Contact> getContactSet () {
+        return this.contactSet;
     }
 
     public void setAddress(Address address) {
@@ -103,14 +102,33 @@ public class Person {
         return this.address;
     }
 
-    public void setRolesList (Set<Roles> rolesList) {
-        if(rolesList != null) {
-            this.rolesList = rolesList;
+    public void setRolesSet (Set<Roles> rolesSet) {
+        if(rolesSet != null) {
+            this.rolesSet = rolesSet;
         }
     }
 
-    public Set<Roles> getRolesList() {
-        return this.rolesList;
+    public Set<Roles> getRolesSet() {
+        return this.rolesSet;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        
+        if (this == obj) return true;
+
+        if (!(obj instanceof Person)) return false;
+
+        Person obj2 = (Person)obj;
+
+        if (this.id != obj2.getId()) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id;
     }
 
     public Person() {

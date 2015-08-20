@@ -35,6 +35,9 @@ public class MainMenuController {
 			case "8"	:	addRole();
 							break;
 
+			case "9"	:	deleteRole();
+							break;
+
 			case "0"	:	System.out.println("System Exiting.");
 							break;
 
@@ -89,7 +92,13 @@ public class MainMenuController {
 	}
 
 	private void addRole() {
-		
+		AddRoleMenu addRoleMenu = new AddRoleMenu();
+		addRoleMenu.add();
+	}
+	
+	private void deleteRole() {
+		DeleteRoleMenu deleteRoleMenu = new DeleteRoleMenu();
+		deleteRoleMenu.delete();
 	}
 
 }
