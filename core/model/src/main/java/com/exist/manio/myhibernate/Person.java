@@ -3,7 +3,13 @@ package com.exist.manio.myfirsthibernate.core.model;
 import java.util.Date;
 import java.util.Set;
 import java.util.HashSet;
+import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import static javax.persistence.GenerationType.*;
 
+@Entity
+@Table(name = "person")
 public class Person {
 
     private int id;
@@ -22,6 +28,9 @@ public class Person {
         this.id = id;
     }
 
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
     public int getId() {
         return this.id;
     }
@@ -30,6 +39,7 @@ public class Person {
         this.firstName = firstName;
     }
 
+    @Column(name = "first_name")
     public String getFirstName() {
         return this.firstName;
     }
@@ -38,6 +48,7 @@ public class Person {
         this.middleName = middleName;
     }
 
+    @Column(name = "middle_name")
     public String getMiddleName() {
         return this.middleName;
     }
@@ -46,6 +57,7 @@ public class Person {
         this.lastName = lastName;
     }
 
+    @Column(name = "last_name")
     public String getLastName() {
         return this.lastName;
     }
@@ -54,6 +66,7 @@ public class Person {
         this.birthday = birthday;
     }
 
+    @Column(name = "birthday")
     public Date getBirthday() {
         return this.birthday;
     }
@@ -62,6 +75,7 @@ public class Person {
         this.isEmployed = isEmployed;
     }
 
+    @Column(name = "is_employed")
     public Boolean getIsEmployed() {
         return this.isEmployed;
     }
@@ -70,6 +84,7 @@ public class Person {
         this.gwa = gwa;
     }
 
+    @Column(name = "gwa")
     public Double getGwa() {
         return this.gwa;
     }
@@ -78,6 +93,7 @@ public class Person {
         this.gender = gender;
     }
 
+    @Column(name = "gender")
     public String getGender() {
         return this.gender;
     }
@@ -88,6 +104,7 @@ public class Person {
         }
     }
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "contact")
     public Set<Contact> getContactSet () {
         return this.contactSet;
     }
@@ -98,6 +115,7 @@ public class Person {
         }
     }
 
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "address", cascade = CascadeType.ALL)
     public Address getAddress() {
         return this.address;
     }
@@ -108,6 +126,11 @@ public class Person {
         }
     }
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "person_roles", joinColumns = {
+        @JoinColumn(name = "person_id", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "role_id",
+            nullable = false, updatable = false) })
     public Set<Roles> getRolesSet() {
         return this.rolesSet;
     }

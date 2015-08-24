@@ -1,5 +1,12 @@
 package com.exist.manio.myfirsthibernate.core.model;
 
+import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import static javax.persistence.GenerationType.*;
+
+@Entity
+@Table(name = "address")
 public class Address {
 
     private int id;
@@ -15,6 +22,10 @@ public class Address {
         this.id = id;
     }
 
+    @Id
+    @GeneratedValue(generator = "generator")
+    @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "person"))
+    @Column(name = "id", unique = true, nullable = false)
     public int getId() {
         return this.id;
     }
@@ -23,6 +34,7 @@ public class Address {
         this.houseNumber = houseNumber;
     }
 
+    @Column(name = "house_number")
     public String getHouseNumber() {
         return this.houseNumber;
     }
@@ -31,6 +43,7 @@ public class Address {
         this.street = street;
     }
 
+    @Column(name = "sreet")
     public String getStreet() {
         return this.street;
     }
@@ -39,6 +52,7 @@ public class Address {
         this.barangay = barangay;
     }
 
+    @Column(name = "barangay")
     public String getBarangay() {
         return this.barangay;
     }
@@ -47,6 +61,7 @@ public class Address {
         this.subdivision = subdivision;
     }
 
+    @Column(name = "subdivision")
     public String getSubdivision() {
         return this.subdivision;
     }
@@ -55,6 +70,7 @@ public class Address {
         this.city = city;
     }
 
+    @Column(name = "city")
     public String getCity() {
         return this.city;
     }
@@ -63,6 +79,7 @@ public class Address {
         this.zipCode = zipCode;
     }
 
+    @Column(name = "zip_code")
     public String getZipCode() {
         return this.zipCode;
     }
@@ -73,6 +90,8 @@ public class Address {
         }
     }
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
     public Person getPerson() {
         return this.person;
     }

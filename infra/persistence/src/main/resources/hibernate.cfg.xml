@@ -20,11 +20,11 @@
         <property name="hibernate.current_session_context_class">thread</property>
 
          <!-- List of XML mapping files -->
-        <mapping resource="Person.hbm.xml"/>
+        <!-- <mapping resource="Person.hbm.xml"/>
         <mapping resource="Address.hbm.xml"/>
         <mapping resource="Contact.hbm.xml"/>
         <mapping resource="ContactType.hbm.xml"/>
-        <mapping resource="Roles.hbm.xml"/>
+        <mapping resource="Roles.hbm.xml"/> -->
 
 </session-factory>
 </hibernate-configuration>

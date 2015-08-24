@@ -1,5 +1,12 @@
 package com.exist.manio.myfirsthibernate.core.model;
 
+import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import static javax.persistence.GenerationType.*;
+
+@Entity
+@Table(name = "contact")
 public class Contact {
 
     private int id;
@@ -12,6 +19,9 @@ public class Contact {
         this.id = id;
     }
 
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
     public int getId() {
         return this.id;
     }
@@ -20,6 +30,7 @@ public class Contact {
         this.contactId = contactId;
     }
 
+    @Column(name="contact_id")
     public int getContactId() {
         return this.contactId;
     }
@@ -28,6 +39,7 @@ public class Contact {
         this.contactCode = contactCode;
     }
 
+    @Column(name="contact_code")
     public String getContactCode() {
         return this.contactCode;
     }
@@ -36,6 +48,7 @@ public class Contact {
         this.contactValue = contactValue;
     }
 
+    @Column(name="contact_value")
     public String getContactValue() {
         return this.contactValue;
     }

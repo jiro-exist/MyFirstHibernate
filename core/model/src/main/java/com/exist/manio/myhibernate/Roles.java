@@ -2,7 +2,13 @@ package com.exist.manio.myfirsthibernate.core.model;
 
 import java.util.Set;
 import java.util.HashSet;
+import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import static javax.persistence.GenerationType.*;
 
+@Entity
+@Table(name = "roles")
 public class Roles {
 
     private String role;
@@ -13,6 +19,8 @@ public class Roles {
         this.role = role;
     }
 
+    @Id
+    @Column(name = "role", unique = true, nullable = false)
     public String getRole() {
         return this.role;
     }
@@ -21,6 +29,7 @@ public class Roles {
         this.roleDesc = roleDesc;
     }
 
+    @Column(name = "role_desc", nullable = false)
     public String getRoleDesc() {
         return this.roleDesc;
     }
@@ -31,6 +40,7 @@ public class Roles {
         }
     }
 
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "person_roles")
     public Set<Person> getPersonSet() {
         return this.personSet;
     }

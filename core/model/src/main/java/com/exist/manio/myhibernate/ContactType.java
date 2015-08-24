@@ -1,5 +1,12 @@
 package com.exist.manio.myfirsthibernate.core.model;
 
+import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import static javax.persistence.GenerationType.*;
+
+@Entity
+@Table(name = "contact_type")
 public class ContactType {
 
     private String contactCode;
@@ -9,6 +16,8 @@ public class ContactType {
         this.contactCode = contactCode;
     }
 
+    @Id
+    @Column(name = "contact_code")
     public String getContactCode() {
         return this.contactCode;
     }
@@ -17,6 +26,7 @@ public class ContactType {
         this.contactDesc = contactDesc;
     }
 
+    @Column(name = "contact_desc")
     public String getContactDesc() {
         return this.contactDesc;
     }
