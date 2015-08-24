@@ -22,53 +22,61 @@ public class RolesDao {
     public RolesDao() {
     }
 
-    public void add(Roles roles) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
+    public void save(Roles roles) {
+        Transaction tx = null;
 
-        session.save(roles);
-        t.commit();
-        session.close();
+        try {
+            tx = HibernateUtil.beginTransaction();
+
+            HibernateUtil.getCurrentSession().saveOrUpdate(roles);
+
+            tx.commit();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+        }
     }
 
-    public void add(int personId, String roleCode) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
+    public void save(int personId, String roleCode) {
+        Transaction tx = null;
 
-        Person person = (Person) session.get(Person.class, personId);
-        Roles roles = (Roles) session.get(Roles.class, roleCode);
+        try {
+            tx = HibernateUtil.beginTransaction();
 
-        person.getRolesSet().add(roles);
+            Person person = (Person) HibernateUtil.getCurrentSession().get(Person.class, personId);
+            Roles roles = (Roles) HibernateUtil.getCurrentSession().get(Roles.class, roleCode);
 
-        session.save(person);
+            person.getRolesSet().add(roles);
 
-        t.commit();
-        session.close();
-    }
+            HibernateUtil.getCurrentSession().saveOrUpdate(person);
 
-    public void update(Roles roles) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-
-        session.update(roles);
-        t.commit();
-
-        session.close();
+            tx.commit();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+        }
     }
 
     public void delete(int personId, String roleCode) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
+        Transaction tx = null;
 
-        Person person = (Person) session.get(Person.class, personId);
-        Roles roles = (Roles) session.get(Roles.class, roleCode);
+        try {
+            tx = HibernateUtil.beginTransaction();
 
-        person.getRolesSet().remove(roles);
+            Person person = (Person) HibernateUtil.getCurrentSession().get(Person.class, personId);
+            Roles roles = (Roles) HibernateUtil.getCurrentSession().get(Roles.class, roleCode);
+            person.getRolesSet().remove(roles);
 
-        session.save(person);
+            HibernateUtil.getCurrentSession().saveOrUpdate(roles);
 
-        t.commit();
-        session.close();
+            tx.commit();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+        }
     }
 
     public List<Roles> getRoles() {

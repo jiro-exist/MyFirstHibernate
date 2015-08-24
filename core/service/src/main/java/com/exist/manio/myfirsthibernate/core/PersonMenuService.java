@@ -46,7 +46,7 @@ public class PersonMenuService {
         address.setPerson(person);
         person.setAddress(address);
 
-        personDao.add(person);
+        personDao.save(person);
     }
 
     public void editPerson(Person person, String firstName, String middleName, String lastName, 
@@ -121,7 +121,7 @@ public class PersonMenuService {
             person.getAddress().setZipCode(zipCode);
         }
 
-        personDao.update(person);
+        personDao.save(person);
     }
 
     public List<Person> getPersons() {
@@ -168,8 +168,8 @@ public class PersonMenuService {
         return personList;
     }
 
-    public boolean delete(int id) {
+    public boolean delete(Person person) {
         PersonDao personDao = new PersonDao();
-        return personDao.delete(id);
+        return personDao.delete(person);
     }
 }

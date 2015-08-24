@@ -21,8 +21,14 @@ public class DeletePersonMenu {
 			id = ScannerUtil.getInput();
 		}
 
-		return personMenuService.delete(Integer.parseInt(id));
+        List<Person> personList = personMenuService.searchPersonList("id",Integer.parseInt(id));
+        
+		if(personList.size() > 0) {
+			Person person = personList.get(0);
+			return personMenuService.delete(person);
+		}
 
+		return false;
 	}
 
 }

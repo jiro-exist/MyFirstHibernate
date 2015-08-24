@@ -21,39 +21,38 @@ public class ContactTypeDao {
     public ContactTypeDao() {
     }
 
-    public void add(ContactType contactType) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
+    public void save(ContactType contactType) {
+        Transaction tx = null;
 
-        session.save(contactType);
-        t.commit();
-        session.close();
-    }
+        try {
+            tx = HibernateUtil.beginTransaction();
 
-    public void update(ContactType contactType) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
+            HibernateUtil.getCurrentSession().saveOrUpdate(contactType);
 
-        session.update(contactType);
-        t.commit();
-
-        session.close();
-    }
-
-    public boolean delete(int id) {
-        boolean result = false;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        Object persistentInstance = session.load(ContactType.class, id);
-
-        if (persistentInstance != null) {
-            session.delete(persistentInstance);
-            t.commit();
-            result = true;
+            tx.commit();
         }
+        catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+        }
+    }
 
-        session.close();
-        return result;
+    public boolean delete(ContactType contactType) {
+        Transaction tx = null;
+
+        try {
+            tx = HibernateUtil.beginTransaction();
+
+            HibernateUtil.getCurrentSession().delete(contactType);
+
+            tx.commit();
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+            return false;
+        }
     }
 
     public List<ContactType> queryContactType() {

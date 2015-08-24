@@ -20,7 +20,7 @@ public class RolesMenuService {
     public void add(int personId, String roleCode) {
 
         RolesDao rolesDao = new RolesDao();
-        rolesDao.add(personId, roleCode);
+        rolesDao.save(personId, roleCode);
 
     }
 
@@ -32,7 +32,7 @@ public class RolesMenuService {
             roles.setRoleDesc(roleDesc);
         }
 
-        rolesDao.update(roles);
+        rolesDao.save(roles);
     }
 
     public void delete(int personId, String roleCode) {

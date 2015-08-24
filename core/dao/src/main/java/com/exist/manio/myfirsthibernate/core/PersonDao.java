@@ -22,39 +22,38 @@ public class PersonDao {
     public PersonDao() {
     }
 
-    public void add(Person person) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
+    public void save(Person person) {
+        Transaction tx = null;
 
-        session.save(person);
-        t.commit();
-        session.close();
-    }
+        try {
+            tx = HibernateUtil.beginTransaction();
 
-    public void update(Person person) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
+            HibernateUtil.getCurrentSession().saveOrUpdate(person);
 
-        session.update(person);
-        t.commit();
-
-        session.close();
-    }
-
-    public boolean delete(int id) {
-        boolean result = false;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        Object persistentInstance = session.load(Person.class, id);
-
-        if (persistentInstance != null) {
-            session.delete(persistentInstance);
-            t.commit();
-            result = true;
+            tx.commit();
         }
+        catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+        }
+    }
 
-        session.close();
-        return result;
+    public boolean delete(Person person) {
+        Transaction tx = null;
+
+        try {
+            tx = HibernateUtil.beginTransaction();
+
+            HibernateUtil.getCurrentSession().delete(person);
+
+            tx.commit();
+            return true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+            return false;
+        }
     }
 
     public List<Person> queryPerson() {

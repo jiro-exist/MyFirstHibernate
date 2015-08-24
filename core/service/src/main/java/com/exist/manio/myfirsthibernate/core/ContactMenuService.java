@@ -24,7 +24,7 @@ public class ContactMenuService {
         Contact contact = new Contact(person, id, contactType, contactValue);
 
         if(person.getContactSet().add(contact)) {
-            contactDao.add(contact);
+            contactDao.save(contact);
             return true;
         }
         else {
@@ -40,7 +40,7 @@ public class ContactMenuService {
             contact.setContactValue(contactValue);
         }
 
-        contactDao.update(contact);
+        contactDao.save(contact);
     }
 
     public boolean delete(Person person, Contact contact) {

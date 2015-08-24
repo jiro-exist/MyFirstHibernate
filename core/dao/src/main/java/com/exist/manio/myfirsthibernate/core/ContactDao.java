@@ -21,41 +21,37 @@ public class ContactDao {
     public ContactDao() {
     }
 
-    public void add(Contact contact) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
+    public void save(Contact contact) {
+        Transaction tx = null;
 
-        session.save(contact);
-        t.commit();
-        session.close();
-    }
+        try {
+            tx = HibernateUtil.beginTransaction();
 
-    public void update(Contact contact) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
+            HibernateUtil.getCurrentSession().saveOrUpdate(contact);
 
-        session.update(contact);
-        t.commit();
-
-        session.close();
+            tx.commit();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+        }
     }
 
     public boolean delete(Contact contact) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+
         try {
-            Transaction t = session.beginTransaction();
+            tx = HibernateUtil.beginTransaction();
 
-            session.delete(contact);
-            t.commit();
+            HibernateUtil.getCurrentSession().delete(contact);
 
+            tx.commit();
             return true;
         }
         catch (Exception e) {
             e.printStackTrace();
+            tx.rollback();
             return false;
-        }
-        finally {
-            session.close();
         }
     }
 

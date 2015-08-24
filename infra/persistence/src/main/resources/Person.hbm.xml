@@ -31,7 +31,7 @@
          cascade="all">
       </one-to-one>
 
-      <set name="rolesSet" table="person_roles"  inverse="false" lazy="false" fetch="select" cascade="all">
+      <set name="rolesSet" table="person_roles" inverse="false" lazy="false" fetch="select" cascade="all">
          <key>
             <column name="person_id" not-null="true" />
          </key>

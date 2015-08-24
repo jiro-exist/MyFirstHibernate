@@ -1,6 +1,8 @@
 package com.exist.manio.myfirsthibernate.core.dao;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.Session; 
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
@@ -27,7 +29,24 @@ public class HibernateUtil {
     }
 
     public static void closeSessionFactory() {
-        getSessionFactory().close();
+        if(sessionFactory != null) {
+            sessionFactory.close();
+        }
+    }
+
+    public static Session getCurrentSession() {
+        try {
+            return getSessionFactory().getCurrentSession();
+        }
+        catch (Exception e) {
+            System.out.println("Error in get current session.");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Transaction beginTransaction() {
+        return getCurrentSession().beginTransaction();
     }
 
 }
