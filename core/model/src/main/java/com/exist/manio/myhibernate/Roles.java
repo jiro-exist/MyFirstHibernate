@@ -40,7 +40,7 @@ public class Roles {
         }
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "person_roles")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "rolesSet")
     public Set<Person> getPersonSet() {
         return this.personSet;
     }

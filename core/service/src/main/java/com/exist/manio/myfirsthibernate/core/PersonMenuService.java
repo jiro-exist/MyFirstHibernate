@@ -164,7 +164,7 @@ public class PersonMenuService {
 
     public List<Person> searchPersonList(String columnName, int id) {
         PersonDao personDao = new PersonDao();
-        List<Person> personList = personDao.searchPerson(columnName, id);
+        List<Person> personList = personDao.searchPerson(columnName, new Long(id));
         return personList;
     }
 

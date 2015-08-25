@@ -9,29 +9,30 @@ import static javax.persistence.GenerationType.*;
 @Table(name = "contact")
 public class Contact {
 
-    private int id;
-    private int contactId;
+    private Long id;
+    private Long contactId;
     private String contactCode;
     private String contactValue;
     private Person person;
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    public int getId() {
+    @Column(name="id")
+    public Long getId() {
         return this.id;
     }
 
-    public void setContactId(int contactId) {
+    public void setContactId(Long contactId) {
         this.contactId = contactId;
     }
 
-    @Column(name="contact_id")
-    public int getContactId() {
+    @Id
+    @GenericGenerator(name="generator", strategy="increment")
+    @GeneratedValue(generator="generator")
+    @Column(name = "contact_id", unique = true, nullable = false)
+    public Long getContactId() {
         return this.contactId;
     }
 
@@ -66,6 +67,8 @@ public class Contact {
         }
     }
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id", nullable = false, insertable=false, updatable=false)
     public Person getPerson() {
         return this.person;
     }
@@ -99,7 +102,7 @@ public class Contact {
 
     }
 
-    public Contact(Person person, int id, String contactCode, String contactValue) {
+    public Contact(Person person, Long id, String contactCode, String contactValue) {
         this.person = person;
         this.id = id;
         this.contactCode = contactCode;

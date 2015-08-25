@@ -30,6 +30,20 @@ public class DeleteRoleMenu {
         List<Person> personList = personMenuService.searchPersonList("id",personId);
         
 		if(personList.size() > 0) {
+			Person person = personList.get(0);
+
+            //print roles
+            Set rolesSet = person.getRolesSet();
+
+            if(rolesSet.size() > 0) {
+                System.out.println("Current List of Roles:\n");
+
+	            for ( Iterator iter = rolesSet.iterator(); iter.hasNext(); ) { 
+	                Roles roles = (Roles) iter.next();
+	                System.out.println(roles.toString() + "\n");
+	            }
+            }
+
 
 			System.out.println("Enter the role code:");
 			roleCode = ScannerUtil.getInput();

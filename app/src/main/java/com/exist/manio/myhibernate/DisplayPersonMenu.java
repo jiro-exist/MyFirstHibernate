@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
+import org.hibernate.Hibernate;
 import com.exist.manio.myfirsthibernate.core.service.PersonMenuService;
 import com.exist.manio.myfirsthibernate.core.model.PersonGwaComparator;
 import com.exist.manio.myfirsthibernate.core.model.Person;

@@ -94,7 +94,7 @@ public class ContactDao {
         return result;
     }
 
-    public List<Contact> searchContact(String columnName, int id) {
+    public List<Contact> searchContact(String columnName, Long id) {
         List<Contact> result = new ArrayList<>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         Criteria cr = session.createCriteria(Contact.class);

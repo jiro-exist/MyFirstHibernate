@@ -21,7 +21,7 @@ public class ContactMenuService {
 
         ContactDao contactDao = new ContactDao();
 
-        Contact contact = new Contact(person, id, contactType, contactValue);
+        Contact contact = new Contact(person, new Long(id), contactType, contactValue);
 
         if(person.getContactSet().add(contact)) {
             contactDao.save(contact);
@@ -54,7 +54,7 @@ public class ContactMenuService {
 
     public List<Contact> searchContactList(String columnName, int id) {
         ContactDao contactDao = new ContactDao();
-        List<Contact> contactList = contactDao.searchContact(columnName, id);
+        List<Contact> contactList = contactDao.searchContact(columnName, new Long(id));
         return contactList;
     }
 

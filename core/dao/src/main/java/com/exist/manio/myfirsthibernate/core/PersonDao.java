@@ -59,43 +59,60 @@ public class PersonDao {
     public List<Person> queryPerson() {
         List<Person> result = new ArrayList<>();
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        Criteria cr = session.createCriteria(Person.class);
+        Transaction tx = null;
 
-        result = cr.list();
-        t.commit();
-        session.close();
+        try {
+            tx = HibernateUtil.beginTransaction();
+            Criteria cr = HibernateUtil.getCurrentSession().createCriteria(Person.class);
+                
+            result = cr.list();
+            tx.commit();
 
-        return result;
+            return result;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+            return result;
+        }
     }
 
     public List<Person> queryPerson(String columnName, String sortOrder) {
         List<Person> result = new ArrayList<>();
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        Criteria cr = session.createCriteria(Person.class);
-        switch (sortOrder) {
+        Transaction tx = null;
 
-            case "asc"  :   cr.addOrder(Order.asc(columnName));
-                            break;
+        try {
+            tx = HibernateUtil.beginTransaction();
+            Criteria cr = HibernateUtil.getCurrentSession().createCriteria(Person.class);
 
-            case "desc" :   cr.addOrder(Order.desc(columnName));
-                            break;
+            System.out.println("~~~~~~~~~~~~~~~~" + columnName + ":" + sortOrder);
 
-            default     :   break;
+            switch (sortOrder) {
 
+                case "asc"  :   cr.addOrder(Order.asc(columnName));
+                                break;
+
+                case "desc" :   cr.addOrder(Order.desc(columnName));
+                                break;
+
+                default     :   break;
+
+            }
+                
+            result = cr.list();
+            tx.commit();
+
+            return result;
         }
-
-        result = cr.list();
-        t.commit();
-        session.close();
-
-        return result;
+        catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+            return result;
+        }
     }
 
-    public List<Person> searchPerson(String columnName, int id) {
+    public List<Person> searchPerson(String columnName, Long id) {
         List<Person> result = new ArrayList<>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction t = session.beginTransaction();

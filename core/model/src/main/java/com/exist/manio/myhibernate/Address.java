@@ -9,7 +9,7 @@ import static javax.persistence.GenerationType.*;
 @Table(name = "address")
 public class Address {
 
-    private int id;
+    private Long id;
     private String houseNumber;
     private String street;
     private String barangay;
@@ -18,7 +18,7 @@ public class Address {
     private String zipCode;
     private Person person;
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -26,7 +26,7 @@ public class Address {
     @GeneratedValue(generator = "generator")
     @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "person"))
     @Column(name = "id", unique = true, nullable = false)
-    public int getId() {
+    public Long getId() {
         return this.id;
     }
 
@@ -43,7 +43,7 @@ public class Address {
         this.street = street;
     }
 
-    @Column(name = "sreet")
+    @Column(name = "street")
     public String getStreet() {
         return this.street;
     }
@@ -90,7 +90,7 @@ public class Address {
         }
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn
     public Person getPerson() {
         return this.person;

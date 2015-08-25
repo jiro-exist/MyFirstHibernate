@@ -38,7 +38,7 @@ public class RolesDao {
         }
     }
 
-    public void save(int personId, String roleCode) {
+    public void save(Long personId, String roleCode) {
         Transaction tx = null;
 
         try {
@@ -59,7 +59,7 @@ public class RolesDao {
         }
     }
 
-    public void delete(int personId, String roleCode) {
+    public void delete(Long personId, String roleCode) {
         Transaction tx = null;
 
         try {
@@ -69,7 +69,7 @@ public class RolesDao {
             Roles roles = (Roles) HibernateUtil.getCurrentSession().get(Roles.class, roleCode);
             person.getRolesSet().remove(roles);
 
-            HibernateUtil.getCurrentSession().saveOrUpdate(roles);
+            HibernateUtil.getCurrentSession().saveOrUpdate(person);
 
             tx.commit();
         }

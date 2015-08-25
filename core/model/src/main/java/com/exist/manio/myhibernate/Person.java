@@ -12,7 +12,7 @@ import static javax.persistence.GenerationType.*;
 @Table(name = "person")
 public class Person {
 
-    private int id;
+    private Long id;
     private String firstName;
     private String middleName;
     private String lastName;
@@ -24,14 +24,14 @@ public class Person {
     private Set<Contact> contactSet = new HashSet<Contact>(0);
     private Set<Roles> rolesSet = new HashSet<Roles>(0);
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    public int getId() {
+    public Long getId() {
         return this.id;
     }
 
@@ -104,7 +104,7 @@ public class Person {
         }
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "contact")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "person", cascade = CascadeType.ALL)
     public Set<Contact> getContactSet () {
         return this.contactSet;
     }
@@ -115,7 +115,7 @@ public class Person {
         }
     }
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "address", cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "person", cascade = CascadeType.ALL)
     public Address getAddress() {
         return this.address;
     }
@@ -126,10 +126,10 @@ public class Person {
         }
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "person_roles", joinColumns = {
         @JoinColumn(name = "person_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "role_id",
+            inverseJoinColumns = { @JoinColumn(name = "role",
             nullable = false, updatable = false) })
     public Set<Roles> getRolesSet() {
         return this.rolesSet;
@@ -151,7 +151,7 @@ public class Person {
 
     @Override
     public int hashCode() {
-        return this.id;
+        return this.id.intValue();
     }
 
     public Person() {
