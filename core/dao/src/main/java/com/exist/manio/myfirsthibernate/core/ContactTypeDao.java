@@ -35,6 +35,9 @@ public class ContactTypeDao {
             e.printStackTrace();
             tx.rollback();
         }
+        finally {
+            HibernateUtil.closeSession();
+        }
     }
 
     public boolean delete(ContactType contactType) {
@@ -52,6 +55,9 @@ public class ContactTypeDao {
             e.printStackTrace();
             tx.rollback();
             return false;
+        }
+        finally {
+            HibernateUtil.closeSession();
         }
     }
 

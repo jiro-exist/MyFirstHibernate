@@ -10,9 +10,8 @@ import static javax.persistence.GenerationType.*;
 
 @Entity
 @Table(name = "person")
-public class Person {
+public class Person extends BaseModel {
 
-    private Long id;
     private String firstName;
     private String middleName;
     private String lastName;
@@ -23,17 +22,6 @@ public class Person {
     private Address address;
     private Set<Contact> contactSet = new HashSet<Contact>(0);
     private Set<Roles> rolesSet = new HashSet<Roles>(0);
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    public Long getId() {
-        return this.id;
-    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -144,14 +132,14 @@ public class Person {
 
         Person obj2 = (Person)obj;
 
-        if (this.id != obj2.getId()) return false;
+        if (this.getId() != obj2.getId()) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return this.id.intValue();
+        return this.getId().intValue();
     }
 
     public Person() {
@@ -159,7 +147,7 @@ public class Person {
     }
 
     public String toString() {
-        String personData = "ID:" + id + "\n"
+        String personData = "ID:" + this.getId() + "\n"
                  + "Name:" + firstName + " " + middleName + " " + lastName + "\n"
                  + "Birthday:" + birthday + "\n"
                  + "Gender:" + gender + "\n"

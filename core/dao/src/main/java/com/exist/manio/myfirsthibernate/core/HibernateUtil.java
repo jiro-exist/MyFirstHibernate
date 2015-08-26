@@ -49,4 +49,11 @@ public class HibernateUtil {
         return getCurrentSession().beginTransaction();
     }
 
+    public static void closeSession() {
+        Session session = getCurrentSession();
+        if(session != null) {
+            session.close();
+        }
+    }
+
 }

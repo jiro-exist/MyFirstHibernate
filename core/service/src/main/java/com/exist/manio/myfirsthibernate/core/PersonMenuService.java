@@ -16,12 +16,12 @@ import com.exist.manio.myfirsthibernate.core.dao.PersonDao;
 
 public class PersonMenuService {
 
+    private PersonDao personDao = new PersonDao();
+
     public void addPerson(String firstName, String middleName, String lastName, 
                         String birthday, String isEmployed, String gwa, String gender, 
                         String houseNumber, String street, String subdivision, String barangay, 
                         String city, String zipCode) throws ParseException {
-
-        PersonDao personDao = new PersonDao();
 
         Boolean employed = null;
         switch (isEmployed) {
@@ -53,8 +53,6 @@ public class PersonMenuService {
                         String birthday, String isEmployed, String gwa, String gender,
                         String houseNumber, String street, String subdivision, String barangay, 
                         String city, String zipCode) throws ParseException {
-
-        PersonDao personDao = new PersonDao();
 
         Boolean employed = null;
         switch (isEmployed) {
@@ -124,15 +122,17 @@ public class PersonMenuService {
         personDao.save(person);
     }
 
+    public boolean delete(Person person) {
+        return personDao.delete(person);
+    }
+
     public List<Person> getPersons() {
-        PersonDao personDao = new PersonDao();
-        List<Person> personList = personDao.queryPerson();
+        List<Person> personList = personDao.getPerson();
         return personList;
     }
 
     public List<Person> getPersons(Comparator comparator, String sortOrder) {
-        PersonDao personDao = new PersonDao();
-        List<Person> personList = personDao.queryPerson();
+        List<Person> personList = personDao.getPerson();
 
         if("asc".equals(sortOrder)) {
             Collections.sort(personList,comparator);
@@ -145,31 +145,32 @@ public class PersonMenuService {
     }
 
     public List<Person> getPersons(String columnName, String sortOrder) {
-        PersonDao personDao = new PersonDao();
-        List<Person> personList = personDao.queryPerson(columnName, sortOrder);
+        List<Person> personList = personDao.getPerson(columnName, sortOrder);
         return personList;
     }
 
+    public List<Person> getPersons(String sortColumn, String sortOrder, String... columnNames) {
+        List<Person> personList = personDao.getPerson(sortColumn, sortOrder, columnNames);
+        return personList;
+    }
+
+    public List<Person> queryPersons(String sqlStr) {
+        return personDao.queryPerson(sqlStr);
+    }
+
     public List<Person> searchPersonList(String columnName, Date date) {
-        PersonDao personDao = new PersonDao();
         List<Person> personList = personDao.searchPerson(columnName, date);
         return personList;
     }
 
     public List<Person> searchPersonList(String columnName, String searchString) {
-        PersonDao personDao = new PersonDao();
         List<Person> personList = personDao.searchPerson(columnName, searchString);
         return personList;
     }
 
     public List<Person> searchPersonList(String columnName, int id) {
-        PersonDao personDao = new PersonDao();
         List<Person> personList = personDao.searchPerson(columnName, new Long(id));
         return personList;
     }
 
-    public boolean delete(Person person) {
-        PersonDao personDao = new PersonDao();
-        return personDao.delete(person);
-    }
 }

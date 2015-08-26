@@ -36,6 +36,9 @@ public class RolesDao {
             e.printStackTrace();
             tx.rollback();
         }
+        finally {
+            HibernateUtil.closeSession();
+        }
     }
 
     public void save(Long personId, String roleCode) {
@@ -57,6 +60,9 @@ public class RolesDao {
             e.printStackTrace();
             tx.rollback();
         }
+        finally {
+            HibernateUtil.closeSession();
+        }
     }
 
     public void delete(Long personId, String roleCode) {
@@ -76,6 +82,9 @@ public class RolesDao {
         catch (Exception e) {
             e.printStackTrace();
             tx.rollback();
+        }
+        finally {
+            HibernateUtil.closeSession();
         }
     }
 

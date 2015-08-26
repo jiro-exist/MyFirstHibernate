@@ -5,13 +5,13 @@
 <hibernate-configuration>
    <session-factory>        
          <!-- Connection settings -->
-        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost/hibernate_ex</property>
-        <property name="hibernate.connection.username">jirotest</property>
-        <property name="hibernate.connection.password">12345</property>
- 
+        <property name="hibernate.connection.driver_class">${db.driverClass}</property>
+        <property name="hibernate.connection.url">${db.jdbcUrl}</property>
+        <property name="hibernate.connection.username">${db.user}</property>
+        <property name="hibernate.connection.password">${db.password}</property>
+        
         <!-- SQL dialect -->
-        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.dialect">${db.dialect}</property>
  
         <!-- Print executed SQL to stdout -->
         <property name="show_sql">true</property>

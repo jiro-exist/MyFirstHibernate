@@ -24,11 +24,13 @@ public class DisplayPersonMenu {
         switch(ScannerUtil.getInput()) {
             case "1"    :   return orderByID();
 
-            case "2"    :   return orderByGWA();
+            case "2"    :   return orderByIDv2();
 
-            case "3"    :   return orderByBirthday();
+            case "3"    :   return orderByGWA();
 
-            case "4"    :   return orderByName();
+            case "4"    :   return orderByBirthday();
+
+            case "5"    :   return orderByName();
 
             case "0"    :   return "";
 
@@ -43,7 +45,30 @@ public class DisplayPersonMenu {
             return "Incorrect sort order";
         }
 
-        return toString(personMenuService.getPersons("id", sortOrder));
+        // return toString(personMenuService.getPersons("id", sortOrder));
+        String sqlStr = "from Person p order by id ";
+        sqlStr += "1".equals(sortOrder) ? "asc" : "desc";
+
+        return toString(personMenuService.queryPersons(sqlStr));
+    }
+
+    private String orderByIDv2() {
+        String sortOrder = getSortOrder();
+        
+        if("".equals(sortOrder)) {
+            return "Incorrect sort order";
+        }
+
+        List result = personMenuService.getPersons("id", sortOrder, "id", "firstName","lastName");
+
+        for (Iterator it = result.iterator(); it.hasNext();) {
+            Object[] row = (Object[]) it.next();
+
+            System.out.println("ID:" + row[0]);
+            System.out.println("Name:" + row[1] + " " + row[2]);
+
+        }
+        return  "";
     }
 
     private String orderByGWA() {
@@ -139,9 +164,10 @@ public class DisplayPersonMenu {
         System.out.println();
         System.out.println("Choose a sort option:"); 
         System.out.println("1:ID");
-        System.out.println("2:GWA");
-        System.out.println("3:Birthday");
-        System.out.println("4:Last Name");
+        System.out.println("2:ID (ID and Name only)");
+        System.out.println("3:GWA");
+        System.out.println("4:Birthday");
+        System.out.println("5:Last Name");
         System.out.println("0:Return");
         System.out.println();
     }

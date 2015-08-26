@@ -12,6 +12,8 @@ import org.hibernate.Query;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 
 import com.exist.manio.myfirsthibernate.core.dao.HibernateUtil;
 import com.exist.manio.myfirsthibernate.core.model.Person;
@@ -36,6 +38,9 @@ public class PersonDao {
             e.printStackTrace();
             tx.rollback();
         }
+        finally {
+            HibernateUtil.closeSession();
+        }
     }
 
     public boolean delete(Person person) {
@@ -54,9 +59,12 @@ public class PersonDao {
             tx.rollback();
             return false;
         }
+        finally {
+            HibernateUtil.closeSession();
+        }
     }
 
-    public List<Person> queryPerson() {
+    public List<Person> getPerson() {
         List<Person> result = new ArrayList<>();
 
         Transaction tx = null;
@@ -67,17 +75,18 @@ public class PersonDao {
                 
             result = cr.list();
             tx.commit();
-
-            return result;
         }
         catch (Exception e) {
             e.printStackTrace();
             tx.rollback();
-            return result;
         }
+        finally {
+            HibernateUtil.closeSession();
+        }
+        return result;
     }
 
-    public List<Person> queryPerson(String columnName, String sortOrder) {
+    public List<Person> getPerson(String columnName, String sortOrder) {
         List<Person> result = new ArrayList<>();
 
         Transaction tx = null;
@@ -85,8 +94,6 @@ public class PersonDao {
         try {
             tx = HibernateUtil.beginTransaction();
             Criteria cr = HibernateUtil.getCurrentSession().createCriteria(Person.class);
-
-            System.out.println("~~~~~~~~~~~~~~~~" + columnName + ":" + sortOrder);
 
             switch (sortOrder) {
 
@@ -102,14 +109,75 @@ public class PersonDao {
                 
             result = cr.list();
             tx.commit();
-
-            return result;
         }
         catch (Exception e) {
             e.printStackTrace();
             tx.rollback();
-            return result;
         }
+        finally {
+            HibernateUtil.closeSession();
+        }
+
+        return result;
+    }
+
+    public List<Person> getPerson(String sortColumn, String sortOrder, String... columnName) {
+        List<Person> result = new ArrayList<>();
+
+        Transaction tx = null;
+
+        try {
+            tx = HibernateUtil.beginTransaction();
+            Criteria cr = HibernateUtil.getCurrentSession().createCriteria(Person.class);
+
+            ProjectionList projList = Projections.projectionList();
+            for(String column : columnName) {
+                projList.add(Projections.property(column));
+            }
+            cr.setProjection(projList);
+            // cr.addOrder(Order.asc(sortColumn));
+
+            switch (sortOrder) {
+
+                case "asc"  :   cr.addOrder(Order.asc(sortColumn));
+                                break;
+
+                case "desc" :   cr.addOrder(Order.desc(sortColumn));
+                                break;
+
+                default     :   break;
+
+            }
+
+            result = cr.list();
+            tx.commit();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+        }
+        finally {
+            HibernateUtil.closeSession();
+        }
+
+        return result;
+    }
+
+    public List<Person> queryPerson(String sqlString) {
+        List<Person> result = new ArrayList<>();
+
+        try {
+            Transaction tx = HibernateUtil.beginTransaction();
+            Query query = HibernateUtil.getCurrentSession().createQuery(sqlString);
+            result = query.list();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            HibernateUtil.closeSession();
+        }
+        return result;
     }
 
     public List<Person> searchPerson(String columnName, Long id) {

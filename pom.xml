@@ -15,6 +15,24 @@
         <module>app</module>
     </modules>
 
+    <profiles>
+
+        <profile>
+            <id>jirotest</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <db.driverClass>org.postgresql.Driver</db.driverClass>
+                <db.jdbcUrl>jdbc:postgresql://localhost/hibernate_ex</db.jdbcUrl>
+                <db.user>jirotest</db.user>
+                <db.password>12345</db.password>
+                <db.dialect>org.hibernate.dialect.PostgreSQLDialect</db.dialect>
+            </properties>
+        </profile>
+
+    </profiles>
+
     <!-- <repositories>
         <repository>
             <id>JBoss repository</id>
@@ -61,6 +79,15 @@
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
 
