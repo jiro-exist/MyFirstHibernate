@@ -100,60 +100,13 @@ public class ContactDao {
         return result;
     }
 
-    public List<Contact> searchContact(String columnName, Long id) {
+    public List<Contact> searchContact(String columnName, Object obj) {
         List<Contact> result = new ArrayList<>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         Criteria cr = session.createCriteria(Contact.class);
 
-        cr.add(Restrictions.eq(columnName, id));
+        cr.add(Restrictions.eq(columnName, obj));
         result = cr.list();
-        session.close();
-
-        return result;
-    }
-
-    public List<Contact> searchContact(String columnName, String searchString) {
-        List<Contact> result = new ArrayList<>();
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        Criteria cr = session.createCriteria(Contact.class);
-
-        cr.add(Restrictions.ilike(columnName,searchString));
-        result = cr.list();
-        t.commit();
-        session.close();
-
-        return result;
-    }
-
-    public List<Contact> searchContact(String columnName, Double searchDouble) {
-        List<Contact> result = new ArrayList<>();
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        Criteria cr = session.createCriteria(Contact.class);
-
-        cr.add(Restrictions.ilike(columnName,searchDouble));
-        result = cr.list();
-        t.commit();
-        session.close();
-
-        return result;
-    }
-
-    public List<Contact> searchContact(String columnName, Date date) {
-        List<Contact> result = new ArrayList<>();
-
-        SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd");
-        
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        Criteria cr = session.createCriteria(Contact.class);
-
-        cr.add(Restrictions.eq(columnName,formatter.format(date)));
-        result = cr.list();
-        t.commit();
         session.close();
 
         return result;

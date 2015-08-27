@@ -180,65 +180,28 @@ public class PersonDao {
         return result;
     }
 
-    public List<Person> searchPerson(String columnName, Long id) {
+    public List<Person> searchPerson(String columnName, Object obj) {
         List<Person> result = new ArrayList<>();
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        Criteria cr = session.createCriteria(Person.class);
 
-        cr.add(Restrictions.eq(columnName, id));
-        result = cr.list();
-        t.commit();
-        session.close();
+        Transaction tx = null;
+
+        try {
+            tx = HibernateUtil.beginTransaction();
+            Criteria cr = HibernateUtil.getCurrentSession().createCriteria(Person.class);
+
+            cr.add(Restrictions.eq(columnName, obj));
+
+            result = cr.list();
+            tx.commit();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+        }
+        finally {
+            HibernateUtil.closeSession();
+        }
 
         return result;
     }
-
-    public List<Person> searchPerson(String columnName, String searchString) {
-        List<Person> result = new ArrayList<>();
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        Criteria cr = session.createCriteria(Person.class);
-
-        cr.add(Restrictions.ilike(columnName,searchString));
-        result = cr.list();
-        t.commit();
-        session.close();
-
-        return result;
-    }
-
-    public List<Person> searchPerson(String columnName, Double searchDouble) {
-        List<Person> result = new ArrayList<>();
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        Criteria cr = session.createCriteria(Person.class);
-
-        cr.add(Restrictions.ilike(columnName,searchDouble));
-        result = cr.list();
-        t.commit();
-        session.close();
-
-        return result;
-    }
-
-    public List<Person> searchPerson(String columnName, Date date) {
-        List<Person> result = new ArrayList<>();
-
-        SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd");
-        
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
-        Criteria cr = session.createCriteria(Person.class);
-
-        cr.add(Restrictions.eq(columnName,formatter.format(date)));
-        result = cr.list();
-        t.commit();
-        session.close();
-
-        return result;
-    }
-
 }

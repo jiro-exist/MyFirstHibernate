@@ -3,6 +3,7 @@ package com.exist.manio.myfirsthibernate.core.model;
 import java.util.Date;
 import java.util.Set;
 import java.util.HashSet;
+
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;

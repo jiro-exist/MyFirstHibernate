@@ -99,53 +99,12 @@ public class ContactTypeDao {
         return result;
     }
 
-    public List<ContactType> searchContactType(String columnName, int id) {
+    public List<ContactType> searchContactType(String columnName, Object obj) {
         List<ContactType> result = new ArrayList<>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         Criteria cr = session.createCriteria(ContactType.class);
 
-        cr.add(Restrictions.eq(columnName, id));
-        result = cr.list();
-        session.close();
-
-        return result;
-    }
-
-    public List<ContactType> searchContactType(String columnName, String searchString) {
-        List<ContactType> result = new ArrayList<>();
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Criteria cr = session.createCriteria(ContactType.class);
-
-        cr.add(Restrictions.ilike(columnName,searchString));
-        result = cr.list();
-        session.close();
-
-        return result;
-    }
-
-    public List<ContactType> searchContactType(String columnName, Double searchDouble) {
-        List<ContactType> result = new ArrayList<>();
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Criteria cr = session.createCriteria(ContactType.class);
-
-        cr.add(Restrictions.ilike(columnName,searchDouble));
-        result = cr.list();
-        session.close();
-
-        return result;
-    }
-
-    public List<ContactType> searchContactType(String columnName, Date date) {
-        List<ContactType> result = new ArrayList<>();
-
-        SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd");
-        
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Criteria cr = session.createCriteria(ContactType.class);
-
-        cr.add(Restrictions.eq(columnName,formatter.format(date)));
+        cr.add(Restrictions.eq(columnName, obj));
         result = cr.list();
         session.close();
 

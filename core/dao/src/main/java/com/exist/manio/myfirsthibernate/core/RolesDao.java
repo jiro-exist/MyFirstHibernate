@@ -127,14 +127,14 @@ public class RolesDao {
         return result;
     }
 
-    public List<Roles> searchRoles(String columnName, String searchString) {
+    public List<Roles> searchRoles(String columnName, Object obj) {
         List<Roles> result = new ArrayList<>();
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction t = session.beginTransaction();
         Criteria cr = session.createCriteria(Roles.class);
 
-        cr.add(Restrictions.ilike(columnName,searchString));
+        cr.add(Restrictions.eq(columnName,obj));
         result = cr.list();
         t.commit();
         session.close();
